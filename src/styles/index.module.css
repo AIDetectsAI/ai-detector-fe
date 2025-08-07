@@ -1,10 +1,11 @@
 
+/* z kolorami to trzeba porobić zmienne */
 
 .loginform {
-  background-color: rgb(255, 255, 255);
+  background-color: var(--primary-color);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px var(--contrast);
   width: 100%;
   max-width: 600px;
   display: flex;
@@ -22,8 +23,9 @@
   padding: 0.7rem;
   border: none;
   border-radius: 5px;
-  background-color: #e0e0e0;
+  background-color: var(--secondary);
   font-size: 1rem;
+  color: var(--primary-color);
 }
 
 .loginform button {
@@ -31,8 +33,9 @@
   padding: 0.7rem;
   border: none;
   border-radius: 5px;
-  background-color: #e0e0e0;
+  background-color: var(--secondary);
   font-size: 1rem;
+  color: var(--primary-color);
   cursor: pointer;
 }
 
@@ -45,7 +48,7 @@
 }
 
 .loginform .links a {
-  color: #000000;
+  color: var(--contrast);
   text-decoration: underline;
   cursor: pointer;
 }

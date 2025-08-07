@@ -1,4 +1,13 @@
 @import "tailwindcss";
+
+
+:root {
+  --primary-color: #ffffff;
+  --contrast: #000;
+  --danger-color: rgb(218, 33, 33);
+  --secondary: #1A5BFF;
+}
+
 h1 {
   font-size: 2rem;
   color: #333;
