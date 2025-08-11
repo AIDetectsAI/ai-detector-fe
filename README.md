@@ -1,3 +1,16 @@
+# Running as container
+To run website on port 80 on your local machine you simply need to run a script depending on your machine OS.
+
+Windows machine:
+```ps1
+./run-fe.ps1
+```
+
+Linux machine (after setting executable to script):
+```sh
+sh run-fe.sh
+```
+
 # Astro Starter Kit: Basics
 
 ```sh
