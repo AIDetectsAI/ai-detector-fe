@@ -1,6 +1,4 @@
 
-/* z kolorami to trzeba porobić zmienne */
-
 .loginform {
   background-color: var(--primary-color);
   padding: 2rem;
@@ -51,4 +49,25 @@
   color: var(--contrast);
   text-decoration: underline;
   cursor: pointer;
+}
+
+.content h1 {
+  font-size: 2rem;
+  color:  var(--contrast);
+  margin-bottom: 1rem;
+  text-decoration: underline;
+}
+
+.content h2 {
+  font-size: 1.5rem;
+  color: var(--contrast);
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--contrast);
+  margin-bottom: 1rem;
 }
