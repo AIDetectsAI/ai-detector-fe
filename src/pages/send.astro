@@ -29,12 +29,13 @@ import AnalysisItem from '../components/AnalysisItem.astro';
             accept="image/*"
           />
           
-          <label 
-            for="fileInput" 
+          <button 
+            type="button"
             class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-200 ease-in-out"
+            onclick="event.stopPropagation(); alert('WIP')"
           >
             Choose File
-          </label>
+          </button>
         </div>
         
         <div class="mt-6 text-center">
@@ -109,21 +110,15 @@ import AnalysisItem from '../components/AnalysisItem.astro';
         e.preventDefault();
         dropZone.classList.remove('border-blue-400', 'bg-blue-50');
         
-        const files = (e as DragEvent).dataTransfer?.files;
-        if (files && files.length > 0) {
-          fileInput.files = files;
-          alert('File uploaded! Ready for analysis.');
-        }
+        alert('WIP');
       });
       
       dropZone.addEventListener('click', () => {
-        fileInput.click();
+        alert('WIP');
       });
       
       fileInput.addEventListener('change', () => {
-        if (fileInput.files && fileInput.files.length > 0) {
-          alert('File selected! Ready for analysis.');
-        }
+        alert('WIP');
       });
     }
   </script>
