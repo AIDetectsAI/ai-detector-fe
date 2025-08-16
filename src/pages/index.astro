@@ -1,8 +1,35 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import styles from '../styles/index.module.css';
 ---
 
 <Layout>
-	<Welcome />
+	<form class={styles.content}>
+		<h1>Sign In</h1>
+	</form>
+			
+	<form class={styles.loginform}>
+		<label for="email">Email</label>
+		<input type="email" id="email" name="email" required />
+
+		<label for="password">Password</label>
+		<input type="password" id="password" name="password" required />
+
+		<button type="submit">Sign In</button>
+
+		<div class={styles.links}>
+			<a onclick="alert('Work In Progress')">Forgot password?</a>
+			<a onclick="alert('Work In Progress')">Sign up</a>
+		</div>
+	</form>
+
+	<div class={styles.content}>
+		<h1>Big headline</h1>
+		<h2>smaller headline</h2>
+		<p>Lorem ipsum terfere.</p>
+		<h2>smaller headline</h2>
+		<p>Lorem ipsum terfere.</p>
+		<h2>smaller headline</h2>
+		<p>Lorem ipsum terfere.</p>
+	</div>
 </Layout>
