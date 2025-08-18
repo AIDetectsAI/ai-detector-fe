@@ -1,0 +1,42 @@
+---
+export interface Props {
+  imageName: string;
+  likelihood?: string;
+  percentage: number;
+  imageUrl?: string;
+  clickable?: boolean;
+}
+
+const { 
+  imageName, 
+  likelihood = "Unknown", 
+  percentage, 
+  imageUrl,
+  clickable = false 
+} = Astro.props;
+---
+
+<div 
+  class={`flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg transition-colors duration-200 ${clickable ? 'cursor-pointer' : ''}`}
+>
+  <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium overflow-hidden">
+    {imageUrl ? (
+      <img 
+        src={imageUrl} 
+        alt={imageName}
+        class="w-full h-full object-cover rounded-lg"
+      />
+    ) : (
+      "image"
+    )}
+  </div>
+  <div class="flex-1">
+    <h3 class="font-medium text-gray-900 text-sm truncate">
+      {imageName}
+    </h3>
+    <p class="text-xs text-gray-600">
+      Likelihood: <span class="font-semibold">{percentage}%</span>
+    </p>
+  </div>
+  <slot />
+</div>
