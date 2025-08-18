@@ -9,12 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/react": "^4.3.0",
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.9.4",
-<<<<<<< HEAD
+    "lucide-react": "^0.540.0",
     "shadcn-ui": "^0.9.5"
-=======
-    "tailwindcss": "^4.1.11"
->>>>>>> 1d4140ed040adc7ba4ceebc635e657af7d03e6bc
   }
 }
