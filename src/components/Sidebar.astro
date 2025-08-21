@@ -30,7 +30,12 @@ const navItems = [
         return (
           <li>
             <button
-              onclick={`location.href='${item.path}'`}
+              onclick={`
+                if(sessionStorage.getItem("loggedIn")==="true")
+                  {location.href='${item.path}'}
+                else
+                  {location.href='/'}
+              `}
               class="flex items-center gap-2 justify-center px-4 py-3 hover:bg-blue-800 text-lg rounded w-full"
             >
               <Icon class="w-5 h-5" />

@@ -8,7 +8,7 @@ import styles from '../styles/index.module.css';
 		<h1>Sign In</h1>
 	</form>
 			
-	<form class={styles.loginform}>
+	<form class={styles.loginform} onsubmit="handleLogin(event)">
 		<label for="email">Email</label>
 		<input type="email" id="email" name="email" required />
 
@@ -32,4 +32,17 @@ import styles from '../styles/index.module.css';
 		<h2>smaller headline</h2>
 		<p>Lorem ipsum terfere.</p>
 	</div>
+	
 </Layout>
+
+<script lang="ts">// Placeholder
+  function handleLogin(event) {
+	if(sessionStorage.getItem("loggedIn")==="true"){
+		sessionStorage.removeItem("loggedIn");
+		alert("Logged out");
+	} else {
+		sessionStorage.setItem("loggedIn", "true"); 
+		alert("Logged in");
+	}
+  }
+</script>
