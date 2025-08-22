@@ -4,45 +4,37 @@ import styles from '../styles/index.module.css';
 ---
 
 <Layout>
-	<form class={styles.content}>
-		<h1>Sign In</h1>
-	</form>
-			
-	<form class={styles.loginform} onsubmit="handleLogin(event)">
-		<label for="email">Email</label>
-		<input type="email" id="email" name="email" required />
+  <form class={styles.content}>
+    <h1>Sign In</h1>
+  </form>
 
-		<label for="password">Password</label>
-		<input type="password" id="password" name="password" required />
+  <form id="login-form" class={styles.loginform}>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required />
 
-		<button type="submit">Sign In</button>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required />
 
-		<div class={styles.links}>
-			<a onclick="alert('Work In Progress')">Forgot password?</a>
-			<a onclick="alert('Work In Progress')">Sign up</a>
-		</div>
-	</form>
+    <button type="submit">Sign In</button>
 
-	<div class={styles.content}>
-		<h1>Big headline</h1>
-		<h2>smaller headline</h2>
-		<p>Lorem ipsum terfere.</p>
-		<h2>smaller headline</h2>
-		<p>Lorem ipsum terfere.</p>
-		<h2>smaller headline</h2>
-		<p>Lorem ipsum terfere.</p>
-	</div>
-	
+    <div class={styles.links}>
+      <a onclick="alert('Work In Progress')">Forgot password?</a>
+      <a onclick="alert('Work In Progress')">Sign up</a>
+    </div>
+  </form>
+
+  <div class={styles.content}>
+    <h1>Big headline</h1>
+    <h2>smaller headline</h2>
+    <p>Lorem ipsum terfere.</p>
+  </div>
+
+  <script>//placeholder login
+    import("../utils/placeholder_routing.ts").then(({ handleLogin }) => {
+      document.getElementById("login-form")?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        handleLogin(e);
+      });
+    });
+  </script>
 </Layout>
-
-<script lang="ts">// Placeholder
-  function handleLogin(event) {
-	if(sessionStorage.getItem("loggedIn")==="true"){
-		sessionStorage.removeItem("loggedIn");
-		alert("Logged out");
-	} else {
-		sessionStorage.setItem("loggedIn", "true"); 
-		alert("Logged in");
-	}
-  }
-</script>
