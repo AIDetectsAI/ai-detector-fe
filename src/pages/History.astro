@@ -2,6 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import AnalysisItem from '../components/AnalysisItem.astro';
 ---
+    <script>//placeholder routing
+        import("../utils/placeholder_routing.ts").then(({ checkLogin }) => checkLogin());
+    </script>
 
 <Layout title="Analysis History">
   <div class="max-w-4xl mx-auto p-6">

@@ -1,7 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import AnalysisItem from '../components/AnalysisItem.astro';
----
+---   
+    <script>//placeholder routing
+        import("../utils/placeholder_routing.ts").then(({ checkLogin }) => checkLogin());
+    </script>
 
 <Layout title="AI Detection Analysis">
   <div class="max-w-6xl mx-auto p-6">

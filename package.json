@@ -12,7 +12,13 @@
     "@astrojs/react": "^4.3.0",
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.9.4",
+<<<<<<< Updated upstream
     "lucide-react": "^0.540.0",
     "shadcn-ui": "^0.9.5"
+=======
+    "lucide-react": "^0.539.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+>>>>>>> Stashed changes
   }
 }
