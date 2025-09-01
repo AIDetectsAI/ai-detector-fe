@@ -8,10 +8,40 @@ import Sidebar from "../components/Sidebar.astro";
     <meta charset="UTF-8" />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen m-0 flex">
-    <Sidebar />
-    <main class="flex-1 p-6 overflow-auto">
-      <slot />
-    </main>
+  <body class="min-h-screen m-0">
+    <div class="layout-container">
+      <aside class="sidebar">
+        <Sidebar />
+      </aside>
+      <main class="page-content">
+        <slot />
+      </main>
+    </div>
+    <style>
+      .layout-container {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 260px;
+        height: 100vh;
+        background: var(--sidebar-bg, #fff);
+        z-index: 100;
+        box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+        overflow: hidden;
+      }
+      .page-content {
+        margin-left: 260px;
+        width: calc(100vw - 260px);
+        height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        position: relative;
+      }
+    </style>
   </body>
 </html>

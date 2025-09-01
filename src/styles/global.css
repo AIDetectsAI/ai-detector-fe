@@ -1,16 +1,18 @@
+
 @import "tailwindcss";
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 :root {
   --primary-color: #ffffff;
   --contrast: #000;
   --danger-color: rgb(218, 33, 33);
   --secondary: #1A5BFF;
-<<<<<<< Updated upstream
-=======
+}
+
+html, body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 h1 {
@@ -32,5 +34,4 @@ p {
   line-height: 1.6;
   color: #333;
   margin-bottom: 1rem;
->>>>>>> Stashed changes
 }

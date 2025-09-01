@@ -17,26 +17,28 @@ const navItems = [
 
 <aside class="w-64 bg-blue-600 flex flex-col justify-between min-h-screen text-white flex-shrink-0">
   <div class="flex flex-col items-center mt-4">
-    <nav class="flex items-center justify-center text-3xl font-bold h-20">
+    <div class="flex items-center justify-center text-3xl font-bold h-20 mb-8">
       ajajaj detector
+    </div>
+    
+    <nav class="w-full">
+      <ul class="space-y-2 px-4">
+        {navItems.map((item) => {
+          const Icon = iconMap[item.icon as keyof typeof iconMap];
+          return (
+            <li>
+              <button
+                onclick={`location.href='${item.path}'`}
+                class="flex items-center gap-2 justify-center px-4 py-3 hover:bg-blue-800 text-lg rounded w-full"
+              >
+                <Icon className="w-5 h-5" />
+                {item.label}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </nav>
-
-    <ul class="space-y-3 list-none p-2 w-full">
-      {navItems.map((item) => {
-        const Icon = iconMap[item.icon as keyof typeof iconMap];
-        return (
-          <li>
-            <button
-              onclick={`location.href='${item.path}'`}
-              class="flex items-center gap-2 justify-center px-4 py-3 hover:bg-blue-800 text-lg rounded w-full"
-            >
-              <Icon className="w-5 h-5" />
-              {item.label}
-            </button>
-          </li>
-        );
-      })}
-    </ul>
   </div>
 
   <div class="p-4">

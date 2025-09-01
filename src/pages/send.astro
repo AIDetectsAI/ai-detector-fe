@@ -1,15 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import AnalysisItem from '../components/AnalysisItem.astro';
----   
-    <script>//placeholder routing
-        import("../utils/placeholder_routing.ts").then(({ checkLogin }) => checkLogin());
-    </script>
+---
 
 <Layout title="AI Detection Analysis">
   <div class="max-w-6xl mx-auto p-6">
     <h1 class="text-3xl font-bold text-gray-800 mb-8">Welcome, User!</h1>
-    
+
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div class="bg-white rounded-lg border-2 border-dashed border-gray-300 p-8">
         <h2 class="text-xl font-semibold text-gray-800 mb-6">Upload file for analysis</h2>
@@ -20,18 +17,18 @@ import AnalysisItem from '../components/AnalysisItem.astro';
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
             </svg>
           </div>
-          
+
           <p class="text-gray-600 text-center mb-4">
             Drop file here or click to select
           </p>
-          
+
           <input 
             type="file" 
             id="fileInput" 
             class="hidden" 
             accept="image/*"
           />
-          
+
           <button 
             type="button"
             class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-200 ease-in-out"
@@ -40,7 +37,7 @@ import AnalysisItem from '../components/AnalysisItem.astro';
             Choose File
           </button>
         </div>
-        
+
         <div class="mt-6 text-center">
           <button 
             type="button"
@@ -51,12 +48,12 @@ import AnalysisItem from '../components/AnalysisItem.astro';
           </button>
         </div>
       </div>
-      
+
       <div class="bg-white rounded-lg border border-gray-200 p-6">
         <h2 class="text-xl font-semibold text-gray-800 mb-6">Recent Analyses</h2>
-        
+
         <div class="space-y-4">
-            
+
             <AnalysisItem 
                 imageName="analysis_image.jpg"
                 likelihood="High"
@@ -98,28 +95,28 @@ import AnalysisItem from '../components/AnalysisItem.astro';
   <script>
     const dropZone = document.querySelector('.bg-gray-50');
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-    
+
     if (dropZone && fileInput) {
       dropZone.addEventListener('dragover', (e) => {
         e.preventDefault();
         dropZone.classList.add('border-blue-400', 'bg-blue-50');
       });
-      
+
       dropZone.addEventListener('dragleave', () => {
         dropZone.classList.remove('border-blue-400', 'bg-blue-50');
       });
-      
+
       dropZone.addEventListener('drop', (e) => {
         e.preventDefault();
         dropZone.classList.remove('border-blue-400', 'bg-blue-50');
-        
+
         alert('WIP');
       });
-      
+
       dropZone.addEventListener('click', () => {
         alert('WIP');
       });
-      
+
       fileInput.addEventListener('change', () => {
         alert('WIP');
       });
