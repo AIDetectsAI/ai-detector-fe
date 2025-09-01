@@ -2,17 +2,25 @@
 import Layout from '../layouts/Layout.astro';
 import AnalysisItem from '../components/AnalysisItem.astro';
 import DetailsButton from '../components/buttons/DetailsButton.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Card from '../components/Card.astro';
 ---
 
 <Layout title="Analysis History">
   <div class="max-w-4xl mx-auto p-6">
-    <h1 class="text-3xl font-bold text-gray-800 mb-2">Analysis History</h1>
-    <p class="text-gray-600 mb-8">Browse the history of your analyses</p>
+    <SectionHeader 
+      title="Analysis History" 
+      subtitle="Browse the history of your analyses"
+      level={1}
+    />
 
     <section class="mb-8">
-      <h2 class="text-lg font-semibold text-gray-700 mb-4">Yesterday</h2>
+      <SectionHeader 
+        title="Yesterday" 
+        level={3}
+      />
 
-      <div class="bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-200">
+      <Card hover={true}>
         <AnalysisItem 
           imageName="notarealimage.jpg"
           percentage={90}
@@ -20,13 +28,16 @@ import DetailsButton from '../components/buttons/DetailsButton.astro';
         >
           <DetailsButton />
         </AnalysisItem>
-      </div>
+      </Card>
     </section>
 
     <section class="mb-8">
-      <h2 class="text-lg font-semibold text-gray-700 mb-4">Last Week</h2>
+      <SectionHeader 
+        title="Last Week" 
+        level={3}
+      />
 
-      <div class="bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-200">
+      <Card hover={true}>
         <AnalysisItem 
           imageName="notarealimage.jpg"
           percentage={90}
@@ -34,13 +45,16 @@ import DetailsButton from '../components/buttons/DetailsButton.astro';
         >
           <DetailsButton />
         </AnalysisItem>
-      </div>
+      </Card>
     </section>
 
     <section class="mb-8">
-      <h2 class="text-lg font-semibold text-gray-700 mb-4">June</h2>
+      <SectionHeader 
+        title="June" 
+        level={3}
+      />
 
-      <div class="bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-200">
+      <Card hover={true}>
         <AnalysisItem 
           imageName="notarealimage.jpg"
           percentage={90}
@@ -48,7 +62,7 @@ import DetailsButton from '../components/buttons/DetailsButton.astro';
         >
           <DetailsButton />
         </AnalysisItem>
-      </div>
+      </Card>
     </section>
 
     <div class="text-center py-12 text-gray-500">

@@ -1,0 +1,48 @@
+---
+export interface Props {
+  title: string;
+  subtitle?: string;
+  level?: 1 | 2 | 3;
+  class?: string;
+}
+
+const { 
+  title,
+  subtitle,
+  level = 2,
+  class: className = ''
+} = Astro.props;
+
+const headerClasses = {
+  1: 'text-3xl font-bold text-gray-800',
+  2: 'text-xl font-semibold text-gray-800',
+  3: 'text-lg font-semibold text-gray-700'
+};
+
+const subtitleClasses = 'text-gray-600';
+const marginClasses = level === 1 ? 'mb-2' : 'mb-6';
+---
+
+<div class={className}>
+  {level === 1 && (
+    <h1 class={`${headerClasses[1]} ${marginClasses}`}>
+      {title}
+    </h1>
+  )}
+  {level === 2 && (
+    <h2 class={`${headerClasses[2]} ${marginClasses}`}>
+      {title}
+    </h2>
+  )}
+  {level === 3 && (
+    <h3 class={`${headerClasses[3]} ${marginClasses}`}>
+      {title}
+    </h3>
+  )}
+  
+  {subtitle && (
+    <p class={`${subtitleClasses} mb-8`}>
+      {subtitle}
+    </p>
+  )}
+</div>

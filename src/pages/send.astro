@@ -1,59 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import AnalysisItem from '../components/AnalysisItem.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Card from '../components/Card.astro';
+import FileUpload from '../components/FileUpload.astro';
+import Button from '../components/buttons/Button.astro';
 ---
 
 <Layout title="AI Detection Analysis">
   <div class="max-w-6xl mx-auto p-6">
-    <h1 class="text-3xl font-bold text-gray-800 mb-8">Welcome, User!</h1>
+    <SectionHeader 
+      title="Welcome, User!" 
+      level={1}
+    />
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div class="bg-white rounded-lg border-2 border-dashed border-gray-300 p-8">
-        <h2 class="text-xl font-semibold text-gray-800 mb-6">Upload file for analysis</h2>
-
-        <div class="flex flex-col items-center justify-center py-12 px-6 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 hover:border-gray-400 transition-colors duration-200">
-          <div class="mb-4">
-            <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-            </svg>
-          </div>
-
-          <p class="text-gray-600 text-center mb-4">
-            Drop file here or click to select
-          </p>
-
-          <input 
-            type="file" 
-            id="fileInput" 
-            class="hidden" 
-            accept="image/*"
-          />
-
-          <button 
-            type="button"
-            class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-200 ease-in-out"
-            onclick="event.stopPropagation(); alert('WIP')"
-          >
-            Choose File
-          </button>
-        </div>
-
+      <FileUpload>
         <div class="mt-6 text-center">
-          <button 
-            type="button"
-            class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-md transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            onclick="alert('Analysis started! This is a placeholder.')"
-          >
+          <Button size="lg" onclick="alert('Analysis started! This is a placeholder.')">
             Start Analysis
-          </button>
+          </Button>
         </div>
-      </div>
+      </FileUpload>
 
-      <div class="bg-white rounded-lg border border-gray-200 p-6">
-        <h2 class="text-xl font-semibold text-gray-800 mb-6">Recent Analyses</h2>
+      <Card>
+        <SectionHeader 
+          title="Recent Analyses" 
+          level={2}
+        />
 
         <div class="space-y-4">
-
             <AnalysisItem 
                 imageName="analysis_image.jpg"
                 likelihood="High"
@@ -88,38 +64,7 @@ import AnalysisItem from '../components/AnalysisItem.astro';
             View All Analyses →
           </a>
         </div>
-      </div>
+      </Card>
     </div>
   </div>
-
-  <script>
-    const dropZone = document.querySelector('.bg-gray-50');
-    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-
-    if (dropZone && fileInput) {
-      dropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropZone.classList.add('border-blue-400', 'bg-blue-50');
-      });
-
-      dropZone.addEventListener('dragleave', () => {
-        dropZone.classList.remove('border-blue-400', 'bg-blue-50');
-      });
-
-      dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('border-blue-400', 'bg-blue-50');
-
-        alert('WIP');
-      });
-
-      dropZone.addEventListener('click', () => {
-        alert('WIP');
-      });
-
-      fileInput.addEventListener('change', () => {
-        alert('WIP');
-      });
-    }
-  </script>
 </Layout>
