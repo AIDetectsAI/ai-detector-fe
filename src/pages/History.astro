@@ -1,5 +1,72 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import AnalysisItem from '../components/AnalysisItem.astro';
+import DetailsButton from '../components/buttons/DetailsButton.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Card from '../components/Card.astro';
 ---
 
-<Layout/>
+<Layout title="Analysis History">
+  <div class="max-w-4xl mx-auto p-6">
+    <SectionHeader 
+      title="Analysis History" 
+      subtitle="Browse the history of your analyses"
+      level={1}
+    />
+
+    <section class="mb-8">
+      <SectionHeader 
+        title="Yesterday" 
+        level={3}
+      />
+
+      <Card hover={true}>
+        <AnalysisItem 
+          imageName="notarealimage.jpg"
+          percentage={90}
+          clickable={true}
+        >
+          <DetailsButton />
+        </AnalysisItem>
+      </Card>
+    </section>
+
+    <section class="mb-8">
+      <SectionHeader 
+        title="Last Week" 
+        level={3}
+      />
+
+      <Card hover={true}>
+        <AnalysisItem 
+          imageName="notarealimage.jpg"
+          percentage={90}
+          clickable={true}
+        >
+          <DetailsButton />
+        </AnalysisItem>
+      </Card>
+    </section>
+
+    <section class="mb-8">
+      <SectionHeader 
+        title="June" 
+        level={3}
+      />
+
+      <Card hover={true}>
+        <AnalysisItem 
+          imageName="notarealimage.jpg"
+          percentage={90}
+          clickable={true}
+        >
+          <DetailsButton />
+        </AnalysisItem>
+      </Card>
+    </section>
+
+    <div class="text-center py-12 text-gray-500">
+      <p class="text-sm">No more analysis history to display</p>
+    </div>
+  </div>
+</Layout>

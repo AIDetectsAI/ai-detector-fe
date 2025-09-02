@@ -1,5 +1,70 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import InputField from '../components/form/InputField.astro';
+import SelectField from '../components/form/SelectField.astro';
+import RadioGroup from '../components/form/RadioGroup.astro';
+import FormSection from '../components/form/FormSection.astro';
+import Button from '../components/buttons/Button.astro';
 ---
 
-<Layout/>
+<Layout title="Settings">
+  <div class="max-w-2xl mx-auto p-6">
+    <SectionHeader 
+      title="Settings" 
+      subtitle="Account and application settings"
+      level={1}
+    />
+    
+    <form class="space-y-8">
+      <FormSection title="User Profile">
+        <InputField
+          id="username"
+          name="username"
+          label="Username"
+          placeholder="Your username"
+          onclick="alert('Work In Progress')"
+        />
+        
+        <InputField
+          id="email"
+          name="email"
+          type="email"
+          label="Email"
+          placeholder="ilovefigma123@gmail.com"
+          onclick="alert('Work In Progress')"
+        />
+      </FormSection>
+
+      <FormSection title="Application Language">
+        <SelectField
+          id="language"
+          name="language"
+          label="Language"
+          onclick="alert('Work In Progress')"
+        >
+          <option value="en">English</option>
+          <option value="pl">Polish</option>
+        </SelectField>
+      </FormSection>
+
+      <FormSection title="Theme">
+        <RadioGroup
+          name="theme"
+          label="Choose theme"
+          options={[
+            { value: "light", label: "Light", checked: true },
+            { value: "dark", label: "Dark" }
+          ]}
+          onclick="alert('Work In Progress')"
+        />
+      </FormSection>
+
+      <div class="pt-6">
+        <Button onclick="alert('Work In Progress')">
+          Save Changes
+        </Button>
+      </div>
+    </form>
+  </div>
+</Layout>
