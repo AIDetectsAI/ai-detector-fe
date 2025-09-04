@@ -29,9 +29,7 @@
 }
 
 .loginform .links a {
-  color: black;
-  text-decoration: underline;
-  cursor: pointer;
+  width: fit-content;
 }
 
 .content h1 {
