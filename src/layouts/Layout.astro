@@ -1,6 +1,7 @@
 ---
 const { title } = Astro.props;
 import Sidebar from "../components/Sidebar.astro";
+import Footer from '../components/Footer.astro';
 ---
 
 <html lang="en">
@@ -8,10 +9,14 @@ import Sidebar from "../components/Sidebar.astro";
     <meta charset="UTF-8" />
     <title>{title}</title>
   </head>
-  <body class="min-h-screen m-0 flex">
-    <Sidebar />
-    <main class="flex-1 p-6">
-      <slot />
-    </main>
+  <body class="min-h-screen m-0 flex flex-col">
+    <div class="flex flex-1">
+      <Sidebar />
+      <main class="flex-1 p-6">
+        <slot />
+      </main>
+    </div>
+    <Footer />
   </body>
 </html>
+
