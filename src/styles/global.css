@@ -19,8 +19,9 @@ button {
   background-color: var(--main-blue);
   font-weight: 600;
   color: white;
+  /* CZY TO POWINNO BYĆ USTAWIANE DEFAULTOWO CZY BĘDZIEMY USTAWIAĆ TAILWINDEM?
   gap: calc(var(--spacing) * 2);
-  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4); */
   border: none;
   border-radius: 15px;
   font-size: 1.1rem;
