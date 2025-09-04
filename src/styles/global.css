@@ -1,9 +1,49 @@
-@import "tailwindcss";
-
+@import 'tailwindcss';
 
 :root {
-  --primary-color: #ffffff;
-  --contrast: #000;
-  --danger-color: rgb(218, 33, 33);
-  --secondary: #1A5BFF;
+  --white: #ffffff;
+  --black: #000;
+  --danger-color: #da2121;
+  --accept-color: #21da49;
+  --main-blue: hsl(221, 83%, 53%);
+  --light-blue: hsl(221, 100%, 60%);
+  --lighter-blue: hsl(221, 100%, 70%);
+  --very-light-blue: hsl(221, 100%, 85%);
+  --main-text: #333;
+}
+
+button {
+  padding: 0.7rem;
+  border: none;
+  border-radius: 15px;
+  background-color: var(--main-blue);
+  font-size: 1.1rem;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  transition: background-color 0.3s, bix-shadow 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: var(--light-blue);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  transform: translateY(-1px) scale(1.01);
+}
+
+input {
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 1rem;
+  color: var(--main-text);
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s, border 0.3s;
+  border: 2px solid var(--lighter-blue);
+}
+
+input:focus {
+  box-shadow: 0 4px 16px rgba(70, 130, 255, 0.18);
+  border: 2px solid var(--light-blue);
 }
