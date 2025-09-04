@@ -24,14 +24,14 @@ const navItems = [
       ajajaj detector
     </nav>
 
-    <ul class="space-y-3 list-none p-2">
+    <ul class="space-y-3 list-none p-2 w-full">
       {navItems.map((item) => {
         const Icon = iconMap[item.icon as keyof typeof iconMap];
         return (
-          <li>
+          <li class="w-full">
             <button
               onclick={`location.href='${item.path}'`}
-              class="flex items-center gap-2 justify-center px-4 py-3 hover:bg-blue-800 text-lg rounded w-full"
+              class="sidebar-btn flex items-center gap-2 justify-center px-4 py-3 text-lg w-full"
             >
               <Icon class="w-5 h-5" />
               {item.label}
