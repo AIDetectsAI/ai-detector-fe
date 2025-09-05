@@ -1,8 +1,12 @@
 @import 'tailwindcss';
 
 :root {
-  --white: #ffffff;
-  --black: #000;
+  --main-background: #f9f9f9;
+  --input-background: #f0f0f0;
+  --shadow-btn: rgba(0, 0, 0, 0.1);
+  --shadow-btn-hover: rgba(0, 0, 0, 0.18);
+  --shadow-input: rgba(0, 0, 0, 0.08);
+  --shadow-inbput-focus: rgba(70, 130, 255, 0.18);
   --danger-color: #da2121;
   --accept-color: #21da49;
   --main-blue: hsl(221, 83%, 53%);
@@ -10,6 +14,21 @@
   --lighter-blue: hsl(221, 100%, 70%);
   --very-light-blue: hsl(221, 100%, 85%);
   --main-text: #333;
+}
+
+.dark {
+  --main-background: #121212;
+  --main-text: #e0e0e0;
+  --input-background: #1e1e1e;
+  --shadow-btn: rgba(255, 255, 255, 0.1);
+  --shadow-btn-hover: rgba(255, 255, 255, 0.18);
+  --shadow-input: rgba(255, 255, 255, 0.08);
+  --shadow-inbput-focus: rgba(70, 130, 255, 0.18);
+}
+
+body {
+  background: var(--main-background);
+  color: var(--main-text);
 }
 
 button {
@@ -24,14 +43,29 @@ button {
   padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4); */
   border: none;
   border-radius: 15px;
-  font-size: 1.1rem;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--shadow-btn);
   transition: background-color 0.3s, bix-shadow 0.3s, transform 0.2s;
 }
 
+button.small-btn {
+  font-size: 0.85rem;
+}
+
+button.medium-btn {
+  font-size: 1.1rem;
+}
+
+button.big-btn {
+  font-size: 1.25rem;
+}
+
+button.huge-btn {
+  font-size: 1.5rem;
+}
+
 button:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 16px var(--shadow-btn-hover);
   background-color: var(--light-blue);
   transform: translateY(-1px) scale(1.01);
 }
@@ -39,17 +73,17 @@ button:hover {
 input {
   padding: 0.6rem 1.2rem;
   border-radius: 10px;
-  background-color: white;
+  background-color: var(--input-background);
   font-size: 1rem;
   color: var(--main-text);
   outline: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px var(--shadow-input);
   transition: box-shadow 0.3s, border 0.3s;
   border: 2px solid var(--lighter-blue);
 }
 
 input:focus {
-  box-shadow: 0 4px 16px rgba(70, 130, 255, 0.18);
+  box-shadow: 0 4px 16px var(--shadow-inbput-focus);
   border: 2px solid var(--light-blue);
 }
 
