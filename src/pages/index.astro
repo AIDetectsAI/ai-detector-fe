@@ -1,35 +1,45 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import styles from '../styles/index.module.css';
+import Layout from "../layouts/Layout.astro";
+import { Button } from "../components/button";
+import { Github, Chrome } from "lucide-react";
+import "../styles/login.css";
 ---
 
 <Layout>
-	<form class={styles.content}>
-		<h1>Sign In</h1>
-	</form>
-			
-	<form class={styles.loginform}>
-		<label for="email">Email</label>
-		<input type="email" id="email" name="email" required />
+	<div class="login-container">
+		<div class="login-panel">
+			<h1 class="login-title">Sign In</h1>
 
-		<label for="password">Password</label>
-		<input type="password" id="password" name="password" required />
+			<form class="form">
+				<label for="email">Email</label>
+				<input type="email" id="email" name="email" required />
 
-		<button class="big-btn px-4 py-3 gap-2" type="submit">Sign In</button>
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" required />
 
-		<div class={styles.links}>
-			<a onclick="alert('Work In Progress')">Forgot password?</a>
-			<a onclick="alert('Work In Progress')">Sign up</a>
+				<Button class="login-btn w-full" type="submit">Sign In</Button>
+
+				<div class="links">
+					<a onclick="alert('Work In Progress')">Forgot password?</a>
+					<a onclick="alert('Work In Progress')">Sign up</a>
+				</div>
+			</form>
+
+			<div class="divider">OR</div>
+
+			<div class="oauth-buttons">
+				<a href="http://localhost:8081/oauth2/authorization/google" class="w-full">
+					<Button class="oauth-btn w-full" variant="secondary">
+						<Chrome class="mr-2 h-5 w-5" /> Sign in with Google
+					</Button>
+				</a>
+
+				<a href="http://localhost:8081/oauth2/authorization/github" class="w-full">
+					<Button class="oauth-btn w-full" variant="secondary">
+						<Github class="mr-2 h-5 w-5" /> Sign in with GitHub
+					</Button>
+				</a>
+			</div>
 		</div>
-	</form>
-
-	<div class={styles.content}>
-		<h1>Big headline</h1>
-		<h2>smaller headline</h2>
-		<p>Lorem ipsum terfere.</p>
-		<h2>smaller headline</h2>
-		<p>Lorem ipsum terfere.</p>
-		<h2>smaller headline</h2>
-		<p>Lorem ipsum terfere.</p>
 	</div>
 </Layout>
