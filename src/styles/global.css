@@ -4,11 +4,13 @@
   --main-background: #f9f9f9;
   --input-background: #f0f0f0;
   --shadow-btn: rgba(0, 0, 0, 0.1);
+  --shadow-panel: rgba(0, 0, 0, 0.15);
   --shadow-btn-hover: rgba(0, 0, 0, 0.18);
   --shadow-input: rgba(0, 0, 0, 0.08);
   --shadow-inbput-focus: rgba(70, 130, 255, 0.18);
   --danger-color: #da2121;
   --accept-color: #21da49;
+  --dark-blue: hsl(221, 83%, 45%);
   --main-blue: hsl(221, 83%, 53%);
   --light-blue: hsl(221, 100%, 60%);
   --lighter-blue: hsl(221, 100%, 70%);
@@ -67,7 +69,7 @@ button.huge-btn {
 button:hover {
   box-shadow: 0 4px 16px var(--shadow-btn-hover);
   background-color: var(--light-blue);
-  transform: translateY(-1px) scale(1.01);
+  transform: scale(1.05);
 }
 
 input {
@@ -84,10 +86,10 @@ input {
 
 input:focus {
   box-shadow: 0 4px 16px var(--shadow-inbput-focus);
-  border: 2px solid var(--light-blue);
+  border: 3px solid var(--light-blue);
 }
 
-a {
+a.link {
   color: var(--main-blue);
   text-decoration: none;
   font-weight: 600;
@@ -95,7 +97,7 @@ a {
   position: relative;
 }
 
-a::after {
+a.link::after {
   content: '';
   position: absolute;
   left: 0;
@@ -106,6 +108,6 @@ a::after {
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-a:hover::after {
+a.link:hover::after {
   width: 100%;
 }
