@@ -1,0 +1,73 @@
+---
+import '../styles/global.css';
+---
+
+  <footer 
+      id="footer" 
+      class="fixed bottom-0 left-0 w-full text-white text-center cursor-pointer"
+      style="background-color: var(--footer-bg); color: var(--primary-color);"
+  >
+
+  <div id="extra" class="max-h-0 overflow-hidden transition-all duration-500" style="background-color: var(--footer-bg);">
+    <div class="p-6 text-sm space-y-4">
+
+      <div>
+        <h3 class="font-semibold mb-2">Source code</h3>
+        <a href="https://github.com/AIDetectsAI" 
+          target="_blank" 
+          class="underline hover:text-gray-300">
+          GitHub Organisation
+        </a>
+      </div>
+
+      <!-- Work in progress, to be filled up at the end -->
+      <div>
+        <h3 class="font-semibold mb-2">Technologies Used (work in progress)</h3>
+        <ul class="list-disc list-inside space-y-1">
+          <li>Frontend - </li>
+          <li>Backend - </li>
+          <li>Machine Learning - </li>
+          <li>Devops -</li>
+        </ul>
+      </div>
+
+      <!-- We don't have a mail adress to code in -->
+      <div>
+        <h3 class="font-semibold mb-2">Contact</h3>
+        <p>
+          <a href="mailto:student@twjstr.pl" class="underline hover:text-gray-300">Write us! (work in progress)</a>
+        </p>
+      </div>
+
+      <div class="border-t border-gray-600 pt-4">
+        <p>Some work in progress text about licence...</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="p-2 border-t">
+      <p>© {new Date().getFullYear()} ajajaj (press for credits)</p>
+    </div>
+  </footer>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const footer = document.getElementById("footer");
+      const extra = document.getElementById("extra");
+      let expanded = false;
+
+      footer?.addEventListener("click", () => {
+        expanded = !expanded;
+        if (expanded) {
+          extra?.classList.remove("max-h-0");
+          extra?.classList.add("max-h-128");
+        } else {
+          extra?.classList.add("max-h-0");
+          extra?.classList.remove("max-h-128");
+        }
+      });
+    });
+  </script>
+
