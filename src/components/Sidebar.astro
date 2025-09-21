@@ -4,6 +4,7 @@ import ClockIcon from '../assets/clock.svg';
 import CogIcon from '../assets/cog.svg';
 import UserIcon from '../assets/userEmpty.svg';
 import '../styles/global.css';
+import '../styles/sidebar.css';
 
 const iconMap = {
   upload: UploadIcon,
@@ -18,20 +19,20 @@ const navItems = [
 ];
 ---
 
-<aside class="w-1/6 bg-blue-600 flex flex-col justify-between min-h-screen text-white">
+<aside class="sidebar w-1/6 flex flex-col justify-between min-h-screen text-white">
   <div class="flex flex-col items-center mt-4">
     <nav class="flex items-center justify-center text-3xl font-bold h-20">
       ajajaj detector
     </nav>
 
-    <ul class="space-y-3 list-none p-2">
+    <ul class="space-y-3 list-none p-2 w-full">
       {navItems.map((item) => {
         const Icon = iconMap[item.icon as keyof typeof iconMap];
         return (
-          <li>
+          <li class="">
             <button
               onclick={`location.href='${item.path}'`}
-              class="flex items-center gap-2 justify-center px-4 py-3 hover:bg-blue-800 text-lg rounded w-full"
+              class="medium-btn sidebar-btn text-lg w-full px-4 py-3 gap-2"
             >
               <Icon class="w-5 h-5" />
               {item.label}
@@ -42,10 +43,10 @@ const navItems = [
     </ul>
   </div>
 
-  <div class="p-4">
+  <div class="p-2 w-full">
     <button
       onclick="location.href='/'"
-      class="flex items-center gap-2 justify-center px-4 py-3 hover:bg-blue-800 text-lg rounded w-full"
+      class="sidebar-btn text-lg w-full"
     >
       <UserIcon class="w-6 h-6 border-2 border-white rounded-full p-0.5" />
       User

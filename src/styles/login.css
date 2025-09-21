@@ -1,122 +1,126 @@
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: url("/public/lightning_800.gif") center center / cover no-repeat fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('/public/lightning_800.gif') center center / cover no-repeat
+    fixed;
 }
 
 .login-panel {
-    background: white;
-    padding: 2rem;
-    border-radius: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    max-width: 400px;
-    width: 100%;
-    text-align: center;
-    animation: fadeIn 0.8s ease-in-out;
+  background: white;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px var(--shadow-panel);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.8s ease-in-out;
+  background-color: var(--main-background);
 }
 
 .login-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: var(--main-text);
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
 }
 
 .form label {
-    font-weight: 500;
-    color: #333;
+  font-weight: 500;
+  color: var(--main-text);
 }
 
 .form input {
-    padding: 0.75rem;
-    border-radius: 0.75rem;
-    border: 1px solid #ccc;
-    transition: all 0.2s ease-in-out;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease-in-out;
+  background-color: var(--input-background);
+  color: var(--main-text);
 }
 
 .form input:focus {
-    border-color: #2563eb;
-    outline: none;
-    box-shadow: 0 0 6px rgba(37, 99, 235, 0.4);
+  border-color: var(--dark-blue);
+  outline: none;
+  box-shadow: 0 0 6px var(--shadow-input-focus);
 }
 
 .login-btn,
 .oauth-btn {
-    border-radius: 9999px;
-    transition: transform 0.2s, background-color 0.2s;
+  border-radius: 9999px;
+  transition: transform 0.2s, background-color 0.2s;
 }
 
-.login-btn:hover,
+/* .login-btn:hover,
 .oauth-btn:hover {
-    transform: scale(1.05);
-    background-color: #2563eb;
-    color: white;
-}
+  transform: scale(1.05);
+  background-color: #2563eb;
+  color: white;
+} */
 
 .links {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .links a {
-    color: #2563eb;
-    cursor: pointer;
-    transition: color 0.2s;
+  color: #2563eb;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
 .links a:hover {
-    color: #1d4ed8;
-    text-decoration: underline;
+  color: #1d4ed8;
+  text-decoration: underline;
 }
 
 .divider {
-    margin: 1.5rem 0;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #888;
-    position: relative;
+  margin: 1.5rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #888;
+  position: relative;
 }
 
 .divider::before,
 .divider::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    width: 40%;
-    height: 1px;
-    background: #ddd;
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #ddd;
 }
 
 .divider::before {
-    left: 0;
+  left: 0;
 }
 
 .divider::after {
-    right: 0;
+  right: 0;
 }
 
 .oauth-buttons a {
-    display: block;
-    margin-top: 0.75rem;
+  display: block;
+  margin-top: 0.75rem;
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

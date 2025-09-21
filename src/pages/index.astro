@@ -17,11 +17,11 @@ import "../styles/login.css";
 				<label for="password">Password</label>
 				<input type="password" id="password" name="password" required />
 
-				<Button class="login-btn w-full" type="submit">Sign In</Button>
+				<Button className="login-btn w-full" type="submit">Sign In</Button>
 
 				<div class="links">
-					<a onclick="alert('Work In Progress')">Forgot password?</a>
-					<a onclick="alert('Work In Progress')">Sign up</a>
+					<a class="link" onclick="alert('Work In Progress')">Forgot password?</a>
+					<a class="link" onclick="alert('Work In Progress')">Sign up</a>
 				</div>
 			</form>
 
@@ -29,14 +29,14 @@ import "../styles/login.css";
 
 			<div class="oauth-buttons">
 				<a href="http://localhost:8081/oauth2/authorization/google" class="w-full">
-					<Button class="oauth-btn w-full" variant="secondary">
-						<Chrome class="mr-2 h-5 w-5" /> Sign in with Google
+					<Button className="oauth-btn w-full" variant="secondary">
+						<Chrome className="mr-2 h-5 w-5" /> Sign in with Google
 					</Button>
 				</a>
 
 				<a href="http://localhost:8081/oauth2/authorization/github" class="w-full">
-					<Button class="oauth-btn w-full" variant="secondary">
-						<Github class="mr-2 h-5 w-5" /> Sign in with GitHub
+					<Button className="oauth-btn w-full" variant="secondary">
+						<Github className="mr-2 h-5 w-5" /> Sign in with GitHub
 					</Button>
 				</a>
 			</div>
