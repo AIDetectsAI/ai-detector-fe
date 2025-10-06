@@ -22,15 +22,15 @@ const navItems = [
       ajajaj detector
     </div>
     
-    <nav class="w-full">
-      <ul class="space-y-2 px-4">
+    <nav class="w-full px-4">
+      <ul class="space-y-3 list-none">
         {navItems.map((item) => {
           const Icon = iconMap[item.icon as keyof typeof iconMap];
           return (
             <li>
               <button
                 onclick={`location.href='${item.path}'`}
-                class="flex items-center gap-2 justify-center px-4 py-3 hover:bg-blue-800 text-lg rounded w-full"
+                class="sidebar-btn flex items-center gap-3 text-lg w-full px-4 py-3 rounded hover:bg-blue-800 transition-colors"
               >
                 <Icon className="w-5 h-5" />
                 {item.label}
@@ -40,31 +40,14 @@ const navItems = [
         })}
       </ul>
     </nav>
-
-    <ul class="space-y-3 list-none p-2 w-full">
-      {navItems.map((item) => {
-        const Icon = iconMap[item.icon as keyof typeof iconMap];
-        return (
-          <li class="">
-            <button
-              onclick={`location.href='${item.path}'`}
-              class="medium-btn sidebar-btn text-lg w-full px-4 py-3 gap-2"
-            >
-              <Icon className="w-5 h-5" />
-              {item.label}
-            </button>
-          </li>
-        );
-      })}
-    </ul>
   </div>
 
-  <div class="p-2 w-full">
+  <div class="px-4 pb-4 w-full">
     <button
       onclick="location.href='/'"
-      class="sidebar-btn text-lg w-full"
+      class="sidebar-btn flex items-center gap-3 text-lg w-full px-4 py-3 rounded hover:bg-blue-800 transition-colors"
     >
-      <User className="w-6 h-6 border-2 border-white rounded-full p-0.5" />
+      <User className="w-5 h-5 border-2 border-white rounded-full p-0.5" />
       User
     </button>
   </div>
