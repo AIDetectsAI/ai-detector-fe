@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Sign up">
+    <form id="signUpForm" class="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h1 class ="text-2xl font-bold mb-6 text-center">Sign Up</h1>
+        
+         <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+        <input
+            id="username"
+            name="username"
+            type="text"
+            placeholder="Input username"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-4"
+            required
+        />
+
+        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+        <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Input email"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-4"
+            required
+        />
+
+        <label for="emailConfirm" class="block text-gray-700 text-sm font-bold mb-2">Confirm Email</label>
+        <input
+            id="emailConfirm"
+            name="emailConfirm"
+            type="email"
+            placeholder="Confirm your email"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-4"
+            required
+        />    
+
+        <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+        <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-4"
+            required
+        />
+
+        <label for="passwordConfirm" class="block text-gray-700 text-sm font-bold mb-2">Confirm password</label>
+        <input
+            id="passwordCofirm"
+            type="password"
+            name="passwordConfirm"
+            placeholder="Confirm password"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-4"
+            required
+        />
+
+        <button
+            type="submit"
+            class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded w-full"
+        >
+            Sign up
+        </button>
+    </form>      
+</Layout>
+
+<script>
+    const formElement =document.getElementById('signUpForm');
+
+    if (!(formElement instanceof HTMLFormElement)) {
+        throw new Error('Element signUpForm nie jest formularzem!');
+    }
+
+    function validatePassword(password){
+        //at least: 1 upper, 1 lower, 1 number, 1 special symbol, 8 char
+        const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        return re.test(password);
+    }
+    function validateEmail(email) {
+        //validation of email structure
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    const form = formElement;
+
+    form.addEventListener('submit',(event)=>{
+        event.preventDefault();
+
+        const data = new FormData(form);
+        const username = data.get('username')?.toString().trim() || '';
+        const email = data.get('email')?.toString().trim() || '';
+        const emailConfirm = data.get('emailConfirm')?.toString().trim() || '';
+        const password = data.get('password')?.toString() || '';
+        const passwordConfirm = data.get('passwordConfirm')?.toString() || '';
+
+    if (username.length < 3) {
+      alert('Username must be at least 3 characters long.');
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      alert('Email format is invalid.');
+      return;
+    }
+
+    if (email !== emailConfirm) {
+      alert('Emails do not match.');
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      alert('Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.');
+      return;
+    }
+
+    if (password !== passwordConfirm) {
+      alert('Passwords do not match.');
+      return;
+    }
+
+    // form.submit(); submitting form 
+    });
+</script>
