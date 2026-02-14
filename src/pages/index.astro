@@ -10,9 +10,9 @@ import "../styles/login.css";
 		<div class="login-panel">
 			<h1 class="login-title">Sign In</h1>
 
-			<form class="form">
-				<label for="email">Email</label>
-				<input type="email" id="email" name="email" required />
+			<form class="form" id="loginForm">
+				<label for="email">Login</label>
+				<input type="text" id="login" name="login" required />
 
 				<label for="password">Password</label>
 				<input type="password" id="password" name="password" required />
@@ -21,7 +21,7 @@ import "../styles/login.css";
 
 				<div class="links">
 					<a class="link" onclick="alert('Work In Progress')">Forgot password?</a>
-					<a class="link" onclick="alert('Work In Progress')">Sign up</a>
+					<a class="link" href="/register">Sign up</a>
 				</div>
 			</form>
 
@@ -43,3 +43,38 @@ import "../styles/login.css";
 		</div>
 	</div>
 </Layout>
+
+<script>
+	document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		
+		const formData = new FormData(e.target as HTMLFormElement);
+		const loginData = {
+			login: formData.get('login') as string,
+			password: formData.get('password') as string
+		};
+
+		try {
+			const response = await fetch('http://localhost:8081/auth/login', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(loginData)
+			});
+
+			if (response.ok) {
+				const result = await response.json();
+				// Store the token if needed
+				localStorage.setItem('token', result.token);
+				// Redirect to the main app
+				window.location.href = '/send';
+			} else {
+				const error = await response.text();
+				alert('Login failed: ' + error);
+			}
+		} catch (error) {
+			alert('Network error: ' + error);
+		}
+	});
+</script>

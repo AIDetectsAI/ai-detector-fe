@@ -1,5 +1,70 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import AnalysisItem from '../components/AnalysisItem.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Card from '../components/Card.astro';
+import FileUpload from '../components/FileUpload.astro';
+import Button from '../components/buttons/Button.astro';
 ---
 
-<Layout/>
+<Layout title="AI Detection Analysis">
+  <div class="max-w-6xl mx-auto p-6">
+    <SectionHeader 
+      title="Welcome, User!" 
+      level={1}
+    />
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <FileUpload>
+        <div class="mt-6 text-center">
+          <Button size="lg" onclick="alert('Analysis started! This is a placeholder.')">
+            Start Analysis
+          </Button>
+        </div>
+      </FileUpload>
+
+      <Card>
+        <SectionHeader 
+          title="Recent Analyses" 
+          level={2}
+        />
+
+        <div class="space-y-4">
+            <AnalysisItem 
+                imageName="analysis_image.jpg"
+                likelihood="High"
+                percentage={90}
+                clickable={false}
+            />
+            <AnalysisItem 
+                imageName="example_image.jpg"
+                likelihood="High"
+                percentage={70}
+                clickable={false}
+            />
+            <AnalysisItem 
+                imageName="analysis_image.svg"
+                likelihood="High"
+                percentage={80}
+                clickable={false}
+            />
+            <AnalysisItem 
+                imageName="test_image.png"
+                likelihood="Low"
+                percentage={30}
+                clickable={false}
+            />
+        </div>
+
+        <div class="mt-6 text-center">
+          <a 
+            href="/history" 
+            class="text-blue-600 hover:text-blue-800 text-sm font-medium hover:underline"
+          >
+            View All Analyses →
+          </a>
+        </div>
+      </Card>
+    </div>
+  </div>
+</Layout>
