@@ -107,3 +107,26 @@ export async function fetchCurrentUser(): Promise<UserProfile> {
   }
   return res.json();
 }
+
+// --- History ---
+
+export interface HistoryEntry {
+  id: string;
+  photoId: string;
+  model: string;
+  chance: number;
+  createdAt: string;
+}
+
+export async function fetchHistory(): Promise<HistoryEntry[]> {
+  const token = getToken();
+  if (!token) throw new Error('Not authenticated');
+
+  const res = await fetch(`${API_BASE}/api/history`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) {
+    throw new Error('Failed to fetch history');
+  }
+  return res.json();
+}

@@ -46,7 +46,10 @@ export default function ModelUpload() {
     setError('');
     try {
       const data = await analyzeImage(file);
-      setResult(data);
+      setResult({
+        ...data,
+        certainty: data.certainty * 100,
+      });
     } catch (err: any) {
       setError(err.message || 'Analysis failed');
     } finally {

@@ -1,22 +1,5 @@
-interface HistoryEntry {
-  id: string;
-  date: string;
-  imageName: string;
-  model: string;
-  chance: number;
-  processingTimeMs: number;
-}
-
-const mockHistory: HistoryEntry[] = [
-  { id: '1', date: '2026-04-20 14:32', imageName: 'sunset_photo.jpg', model: 'ai-detector-v1', chance: 12.5, processingTimeMs: 234 },
-  { id: '2', date: '2026-04-20 13:15', imageName: 'portrait_01.png', model: 'ai-detector-v1', chance: 87.3, processingTimeMs: 189 },
-  { id: '3', date: '2026-04-19 22:45', imageName: 'landscape.webp', model: 'ai-detector-v1', chance: 45.8, processingTimeMs: 312 },
-  { id: '4', date: '2026-04-19 18:20', imageName: 'product_image.jpg', model: 'ai-detector-v1', chance: 92.1, processingTimeMs: 198 },
-  { id: '5', date: '2026-04-18 10:05', imageName: 'cat_meme.png', model: 'ai-detector-v1', chance: 3.2, processingTimeMs: 156 },
-  { id: '6', date: '2026-04-17 16:33', imageName: 'abstract_art.jpg', model: 'ai-detector-v1', chance: 78.9, processingTimeMs: 275 },
-  { id: '7', date: '2026-04-17 09:12', imageName: 'selfie_001.jpg', model: 'ai-detector-v1', chance: 5.4, processingTimeMs: 142 },
-  { id: '8', date: '2026-04-16 20:40', imageName: 'generated_face.png', model: 'ai-detector-v1', chance: 96.7, processingTimeMs: 201 },
-];
+import { useState, useEffect } from 'react';
+import { fetchHistory, type HistoryEntry } from '../lib/api';
 
 function getResultColor(chance: number): string {
   if (chance >= 70) return '#ef4444';
@@ -30,7 +13,26 @@ function getResultLabel(chance: number): string {
   return 'Likely Real';
 }
 
+function formatDate(iso: string): string {
+  const d = new Date(iso);
+  return d.toLocaleString('pl-PL', {
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit',
+  });
+}
+
 export default function HistoryList() {
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    fetchHistory()
+      .then(setHistory)
+      .catch((e) => setError(e.message || 'Failed to load history'))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <div className="history-page">
       <div className="page-header">
@@ -38,15 +40,20 @@ export default function HistoryList() {
         <p>Review your past image analyses</p>
       </div>
 
-      <div className="history-info-banner">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" />
-        </svg>
-        <span>Showing mocked data — history endpoint coming soon</span>
-      </div>
+      {error && <div className="upload-error">{error}</div>}
 
+      {loading ? (
+        <p style={{ color: 'var(--muted-text)' }}>Loading history...</p>
+      ) : history.length === 0 ? (
+        <div className="history-info-banner">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" />
+          </svg>
+          <span>No analyses yet — upload an image to get started</span>
+        </div>
+      ) : (
       <div className="history-list">
-        {mockHistory.map((entry) => (
+        {history.map((entry) => (
           <div key={entry.id} className="history-card">
             <div className="history-card-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -56,8 +63,8 @@ export default function HistoryList() {
               </svg>
             </div>
             <div className="history-card-info">
-              <span className="history-filename">{entry.imageName}</span>
-              <span className="history-date">{entry.date}</span>
+              <span className="history-filename">{entry.photoId.slice(0, 8)}...</span>
+              <span className="history-date">{formatDate(entry.createdAt)}</span>
             </div>
             <div className="history-card-result">
               <span className="history-chance" style={{ color: getResultColor(entry.chance) }}>
@@ -69,11 +76,11 @@ export default function HistoryList() {
             </div>
             <div className="history-card-meta">
               <span>{entry.model}</span>
-              <span>{entry.processingTimeMs}ms</span>
             </div>
           </div>
         ))}
       </div>
+      )}
     </div>
   );
 }
