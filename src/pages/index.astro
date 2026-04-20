@@ -1,45 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { Button } from "../components/button";
-import { Github, Chrome } from "lucide-react";
-import "../styles/login.css";
+import AppLayout from '../layouts/AppLayout.astro';
+import ModelUpload from '../components/ModelUpload';
 ---
 
-<Layout>
-	<div class="login-container">
-		<div class="login-panel">
-			<h1 class="login-title">Sign In</h1>
-
-			<form class="form">
-				<label for="email">Email</label>
-				<input type="email" id="email" name="email" required />
-
-				<label for="password">Password</label>
-				<input type="password" id="password" name="password" required />
-
-				<Button className="login-btn w-full" type="submit">Sign In</Button>
-
-				<div class="links">
-					<a class="link" onclick="alert('Work In Progress')">Forgot password?</a>
-					<a class="link" onclick="alert('Work In Progress')">Sign up</a>
-				</div>
-			</form>
-
-			<div class="divider">OR</div>
-
-			<div class="oauth-buttons">
-				<a href="http://localhost:8081/oauth2/authorization/google" class="w-full">
-					<Button className="oauth-btn w-full" variant="secondary">
-						<Chrome className="mr-2 h-5 w-5" /> Sign in with Google
-					</Button>
-				</a>
-
-				<a href="http://localhost:8081/oauth2/authorization/github" class="w-full">
-					<Button className="oauth-btn w-full" variant="secondary">
-						<Github className="mr-2 h-5 w-5" /> Sign in with GitHub
-					</Button>
-				</a>
-			</div>
-		</div>
-	</div>
-</Layout>
+<AppLayout title="AI Detector">
+  <ModelUpload client:load />
+</AppLayout>

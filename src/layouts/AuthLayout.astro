@@ -1,0 +1,24 @@
+---
+const { title = 'AI Detector' } = Astro.props;
+import '../styles/global.css';
+import '../styles/auth.css';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div class="auth-page">
+      <slot />
+    </div>
+    <script>
+      if (localStorage.getItem('token')) {
+        window.location.replace('/');
+      }
+    </script>
+  </body>
+</html>
