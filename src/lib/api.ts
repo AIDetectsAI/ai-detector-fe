@@ -27,7 +27,10 @@ export function isAuthenticated(): boolean {
 
 // --- API calls ---
 
-export async function loginUser(login: string, password: string): Promise<{ token: string }> {
+export async function loginUser(
+  login: string,
+  password: string,
+): Promise<{ token: string }> {
   const res = await fetch(`${API_BASE}/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -40,7 +43,11 @@ export async function loginUser(login: string, password: string): Promise<{ toke
   return res.json();
 }
 
-export async function registerUser(login: string, password: string, email: string): Promise<string> {
+export async function registerUser(
+  login: string,
+  password: string,
+  email: string,
+): Promise<string> {
   const res = await fetch(`${API_BASE}/auth/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

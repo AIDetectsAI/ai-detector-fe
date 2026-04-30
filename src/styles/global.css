@@ -40,13 +40,16 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
   background: var(--main-background);
   color: var(--main-text);
   -webkit-font-smoothing: antialiased;
 }
 
-input, select {
+input,
+select {
   padding: 0.65rem 0.9rem;
   border-radius: 8px;
   background-color: var(--input-background);
@@ -54,11 +57,14 @@ input, select {
   color: var(--main-text);
   outline: none;
   border: 2px solid var(--border-color);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
   width: 100%;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   border-color: var(--main-blue);
   box-shadow: 0 0 0 3px var(--very-light-blue);
 }
