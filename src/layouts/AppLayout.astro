@@ -1,0 +1,33 @@
+---
+const { title = 'AI Detector' } = Astro.props;
+const currentPath = Astro.url.pathname;
+import AppSidebar from '../components/AppSidebar';
+import '../styles/global.css';
+import '../styles/app.css';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="app-body" id="app-body" style="opacity: 0;">
+    <div class="app-layout">
+      <AppSidebar client:load currentPath={currentPath} />
+      <main class="app-main">
+        <slot />
+      </main>
+    </div>
+    <script>
+      const token = localStorage.getItem('token');
+      if (!token) {
+        window.location.replace('/login');
+      } else {
+        const el = document.getElementById('app-body');
+        if (el) el.style.opacity = '1';
+      }
+    </script>
+  </body>
+</html>
