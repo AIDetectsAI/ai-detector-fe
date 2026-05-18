@@ -108,7 +108,7 @@ export default function ModelUpload() {
             </svg>
             <p className="upload-text">Drag & drop an image here</p>
             <p className="upload-subtext">or click to browse files</p>
-            <p className="upload-formats">Supports: JPG, PNG, WEBP, GIF</p>
+            <p className="upload-formats">Supports: Any image file</p>
           </div>
         ) : (
           <div className="preview-container">
