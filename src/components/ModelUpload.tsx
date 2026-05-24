@@ -1,4 +1,10 @@
-import { useState, useRef, useCallback, type DragEvent } from 'react';
+import {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  type DragEvent,
+} from 'react';
 import { analyzeImage, type AnalysisResult } from '../lib/api';
 
 export default function ModelUpload() {
@@ -9,6 +15,13 @@ export default function ModelUpload() {
   const [error, setError] = useState('');
   const [dragActive, setDragActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (result && resultRef.current) {
+      resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [result]);
 
   const handleFile = useCallback((f: File) => {
     if (!f.type.startsWith('image/')) {
@@ -197,7 +210,7 @@ export default function ModelUpload() {
         )}
 
         {result && (
-          <div className='result-card'>
+          <div className='result-card' ref={resultRef}>
             <div className='result-header'>
               <h2>Analysis Result</h2>
               <span

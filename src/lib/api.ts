@@ -119,7 +119,7 @@ export async function fetchCurrentUser(): Promise<UserProfile> {
 
 export interface HistoryEntry {
   id: string;
-  photoId: string;
+  photoUrl: string;
   model: string;
   chance: number;
   createdAt: string;

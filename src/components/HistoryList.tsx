@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchHistory, type HistoryEntry } from '../lib/api';
+import styles from './HistoryList.module.css';
 
 function getResultColor(chance: number): string {
   if (chance >= 70) return '#ef4444';
@@ -28,6 +29,8 @@ export default function HistoryList() {
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedEntry, setSelectedEntry] = useState<HistoryEntry | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     fetchHistory()
@@ -36,19 +39,29 @@ export default function HistoryList() {
       .finally(() => setLoading(false));
   }, []);
 
+  const openModal = (entry: HistoryEntry) => {
+    setSelectedEntry(entry);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedEntry(null);
+    setModalOpen(false);
+  };
+
   return (
-    <div className='history-page'>
-      <div className='page-header'>
+    <div className={styles.historyPage}>
+      <div className={styles.pageHeader}>
         <h1>Analysis History</h1>
         <p>Review your past image analyses</p>
       </div>
 
-      {error && <div className='upload-error'>{error}</div>}
+      {error && <div className={styles.uploadError}>{error}</div>}
 
       {loading ? (
         <p style={{ color: 'var(--muted-text)' }}>Loading history...</p>
       ) : history.length === 0 ? (
-        <div className='history-info-banner'>
+        <div className={styles.historyInfoBanner}>
           <svg
             width='16'
             height='16'
@@ -64,52 +77,74 @@ export default function HistoryList() {
           <span>No analyses yet — upload an image to get started</span>
         </div>
       ) : (
-        <div className='history-list'>
+        <div className={styles.historyList}>
           {history.map((entry) => (
-            <div key={entry.id} className='history-card'>
-              <div className='history-card-icon'>
-                <svg
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                >
-                  <rect x='3' y='3' width='18' height='18' rx='2' ry='2' />
-                  <circle cx='8.5' cy='8.5' r='1.5' />
-                  <polyline points='21 15 16 10 5 21' />
-                </svg>
+            <div key={entry.id} className={styles.historyCard}>
+              <div
+                className={styles.imageContainer}
+                onClick={() => openModal(entry)}
+                title='Click to enlarge'
+              >
+                <img
+                  src={entry.photoUrl}
+                  alt='Analyzed image'
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src =
+                      '/assets/placeholder-image.png';
+                  }}
+                />
               </div>
-              <div className='history-card-info'>
-                <span className='history-filename'>
-                  {entry.photoId.slice(0, 8)}...
-                </span>
-                <span className='history-date'>
+              <div className={styles.cardContent}>
+                <span className={styles.date}>
                   {formatDate(entry.createdAt)}
                 </span>
+                <span className={styles.model}>{entry.model}</span>
               </div>
-              <div className='history-card-result'>
+              <div className={styles.resultBadge}>
                 <span
-                  className='history-chance'
+                  className={styles.score}
                   style={{ color: getResultColor(entry.chance) }}
                 >
-                  {entry.chance}%
+                  {Math.round(entry.chance)}%
                 </span>
                 <span
-                  className='history-label'
+                  className={styles.label}
                   style={{ color: getResultColor(entry.chance) }}
                 >
                   {getResultLabel(entry.chance)}
                 </span>
               </div>
-              <div className='history-card-meta'>
-                <span>{entry.model}</span>
-              </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Modal Overlay */}
+      {modalOpen && selectedEntry && (
+        <div className={styles.modalOverlay} onClick={closeModal}>
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button onClick={closeModal} className={styles.closeButton}>
+              ×
+            </button>
+            <img src={selectedEntry.photoUrl} alt='Large preview' />
+            <div className={styles.modalResultInfo}>
+              <span
+                className={styles.modalScore}
+                style={{ color: getResultColor(selectedEntry.chance) }}
+              >
+                {Math.round(selectedEntry.chance)}%
+              </span>
+              <span
+                className={styles.modalLabel}
+                style={{ color: getResultColor(selectedEntry.chance) }}
+              >
+                {getResultLabel(selectedEntry.chance)}
+              </span>
+            </div>
+          </div>
         </div>
       )}
     </div>
