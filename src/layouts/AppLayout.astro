@@ -12,6 +12,11 @@ import '../styles/app.css';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script is:inline>
+      if (localStorage.getItem('darkMode') === 'true') {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
   </head>
   <body class="app-body" id="app-body" style="opacity: 0;">
     <div class="app-layout">

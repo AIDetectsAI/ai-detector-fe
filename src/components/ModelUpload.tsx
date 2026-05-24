@@ -23,6 +23,36 @@ export default function ModelUpload() {
     }
   }, [result]);
 
+  const handleAnalyze = async () => {
+    if (!file) return;
+    setLoading(true);
+    setError('');
+    try {
+      const data = await analyzeImage(file);
+      setResult({
+        ...data,
+        certainty: data.certainty * 100,
+      });
+    } catch (err: any) {
+      setError(err.message || 'Analysis failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (
+      file &&
+      !result &&
+      !loading &&
+      !error &&
+      localStorage.getItem('autoAnalyze') === 'true'
+    ) {
+      handleAnalyze();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [file]);
+
   const handleFile = useCallback((f: File) => {
     if (!f.type.startsWith('image/')) {
       setError('Please select an image file');
@@ -55,23 +85,6 @@ export default function ModelUpload() {
     },
     [handleFile],
   );
-
-  const handleAnalyze = async () => {
-    if (!file) return;
-    setLoading(true);
-    setError('');
-    try {
-      const data = await analyzeImage(file);
-      setResult({
-        ...data,
-        certainty: data.certainty * 100,
-      });
-    } catch (err: any) {
-      setError(err.message || 'Analysis failed');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleReset = () => {
     setFile(null);

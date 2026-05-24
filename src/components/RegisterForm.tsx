@@ -32,7 +32,14 @@ export default function RegisterForm() {
       setAuth(data.token, login);
       window.location.href = '/';
     } catch (err: any) {
-      setError(err.message || 'Registration failed');
+      let errorMessage = err.message || 'Registration failed';
+      if (errorMessage.includes('already exists')) {
+        errorMessage = 'Username is already taken.';
+      } else if (errorMessage.includes('invalid data')) {
+        errorMessage =
+          'Invalid form data. Make sure your email is correct and try again.';
+      }
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

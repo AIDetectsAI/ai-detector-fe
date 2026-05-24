@@ -35,7 +35,16 @@ export default function HistoryList() {
   useEffect(() => {
     fetchHistory()
       .then(setHistory)
-      .catch((e) => setError(e.message || 'Failed to load history'))
+      .catch((e) => {
+        const msg = e.message || '';
+        if (msg.includes('Not authenticated')) {
+          setError('You are not logged in. Please log in to view history.');
+        } else if (msg.includes('User not found')) {
+          setError('User account could not be found.');
+        } else {
+          setError('Failed to load history.');
+        }
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -56,10 +65,10 @@ export default function HistoryList() {
         <p>Review your past image analyses</p>
       </div>
 
-      {error && <div className={styles.uploadError}>{error}</div>}
-
       {loading ? (
         <p style={{ color: 'var(--muted-text)' }}>Loading history...</p>
+      ) : error ? (
+        <div className={styles.uploadError}>{error}</div>
       ) : history.length === 0 ? (
         <div className={styles.historyInfoBanner}>
           <svg
@@ -74,7 +83,9 @@ export default function HistoryList() {
             <line x1='12' y1='16' x2='12' y2='12' />
             <line x1='12' y1='8' x2='12.01' y2='8' />
           </svg>
-          <span>No analyses yet — upload an image to get started</span>
+          <span>
+            Brak wyników. Prześlij zdjęcie, aby zobaczyć tutaj analizy.
+          </span>
         </div>
       ) : (
         <div className={styles.historyList}>

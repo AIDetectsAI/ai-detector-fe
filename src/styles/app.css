@@ -620,7 +620,7 @@
 }
 
 .setting-item.danger {
-  background: #fef2f2;
+  background: var(--danger-bg, #fef2f2);
   margin: 0 -1.5rem -1.5rem;
   padding: 1rem 1.5rem;
   border-radius: 0 0 var(--radius) var(--radius);

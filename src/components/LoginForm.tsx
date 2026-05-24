@@ -21,7 +21,16 @@ export default function LoginForm() {
       setAuth(data.token, login);
       window.location.href = '/';
     } catch (err: any) {
-      setError(err.message || 'Login failed');
+      let errorMessage = err.message || 'Login failed';
+      if (
+        errorMessage.includes('User does not exist') ||
+        errorMessage.includes('invalid password')
+      ) {
+        errorMessage = 'Invalid username or password.';
+      } else if (errorMessage.includes('invalid data')) {
+        errorMessage = 'Invalid form data. Please check your input.';
+      }
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

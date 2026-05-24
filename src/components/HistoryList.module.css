@@ -23,8 +23,8 @@
 }
 
 .historyCard {
-  background-color: var(--background-color, #ffffff);
-  border: 1px solid var(--border-color, #e5e7eb);
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 16px;
   display: flex;
@@ -52,7 +52,7 @@
   height: 64px;
   object-fit: cover;
   border-radius: 8px;
-  border: 1px solid var(--border-color, #e5e7eb);
+  border: 1px solid var(--border-color);
   transition: opacity 0.2s;
 }
 
@@ -69,14 +69,14 @@
 
 .date {
   font-weight: 600;
-  color: var(--text-color, #111827);
+  color: var(--main-text);
   font-size: 1rem;
 }
 
 .model {
   font-size: 0.75rem;
-  color: var(--muted-text, #6b7280);
-  background: var(--bg-secondary, #f3f4f6);
+  color: var(--muted-text);
+  background: var(--input-background);
   padding: 4px 8px;
   border-radius: 12px;
   width: fit-content;
@@ -90,7 +90,7 @@
   align-items: flex-end;
   text-align: right;
   padding-left: 16px;
-  border-left: 1px solid var(--border-color, #e5e7eb);
+  border-left: 1px solid var(--border-color);
 }
 
 .score {
@@ -120,7 +120,7 @@
 
 .modalContent {
   position: relative;
-  background: var(--background-color, #ffffff);
+  background: var(--card-background);
   padding: 12px;
   border-radius: 12px;
   box-shadow:
@@ -149,9 +149,9 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: var(--background-color, #ffffff);
-  color: var(--text-color, #000000);
-  border: 1px solid var(--border-color, #e5e7eb);
+  background: var(--card-background);
+  color: var(--main-text);
+  border: 1px solid var(--border-color);
   font-size: 1.25rem;
   display: flex;
   align-items: center;
@@ -163,7 +163,7 @@
 }
 
 .closeButton:hover {
-  background: var(--bg-secondary, #f3f4f6);
+  background: var(--input-background);
   transform: scale(1.1);
 }
 

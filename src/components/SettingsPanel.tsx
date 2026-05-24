@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function SettingsPanel() {
   const [darkMode, setDarkMode] = useState(false);
@@ -6,9 +6,32 @@ export default function SettingsPanel() {
   const [autoAnalyze, setAutoAnalyze] = useState(false);
   const [language, setLanguage] = useState('en');
 
+  useEffect(() => {
+    setDarkMode(localStorage.getItem('darkMode') === 'true');
+    setNotifications(localStorage.getItem('notifications') !== 'false');
+    setAutoAnalyze(localStorage.getItem('autoAnalyze') === 'true');
+    setLanguage(localStorage.getItem('language') || 'en');
+  }, []);
+
   const handleDarkMode = (enabled: boolean) => {
     setDarkMode(enabled);
+    localStorage.setItem('darkMode', enabled.toString());
     document.documentElement.classList.toggle('dark', enabled);
+  };
+
+  const handleAutoAnalyze = (enabled: boolean) => {
+    setAutoAnalyze(enabled);
+    localStorage.setItem('autoAnalyze', enabled.toString());
+  };
+
+  const handleNotifications = (enabled: boolean) => {
+    setNotifications(enabled);
+    localStorage.setItem('notifications', enabled.toString());
+  };
+
+  const handleLanguage = (lang: string) => {
+    setLanguage(lang);
+    localStorage.setItem('language', lang);
   };
 
   return (
@@ -46,7 +69,7 @@ export default function SettingsPanel() {
             </div>
             <select
               value={language}
-              onChange={(e) => setLanguage(e.target.value)}
+              onChange={(e) => handleLanguage(e.target.value)}
               className='setting-select'
             >
               <option value='en'>English</option>
@@ -68,7 +91,7 @@ export default function SettingsPanel() {
               <input
                 type='checkbox'
                 checked={autoAnalyze}
-                onChange={(e) => setAutoAnalyze(e.target.checked)}
+                onChange={(e) => handleAutoAnalyze(e.target.checked)}
               />
               <span className='toggle-slider' />
             </label>
@@ -88,7 +111,7 @@ export default function SettingsPanel() {
               <input
                 type='checkbox'
                 checked={notifications}
-                onChange={(e) => setNotifications(e.target.checked)}
+                onChange={(e) => handleNotifications(e.target.checked)}
               />
               <span className='toggle-slider' />
             </label>
