@@ -1,4 +1,10 @@
-import { useState, useRef, useCallback, type DragEvent } from 'react';
+import {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  type DragEvent,
+} from 'react';
 import { analyzeImage, type AnalysisResult } from '../lib/api';
 
 export default function ModelUpload() {
@@ -9,6 +15,43 @@ export default function ModelUpload() {
   const [error, setError] = useState('');
   const [dragActive, setDragActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (result && resultRef.current) {
+      resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [result]);
+
+  const handleAnalyze = async () => {
+    if (!file) return;
+    setLoading(true);
+    setError('');
+    try {
+      const data = await analyzeImage(file);
+      setResult({
+        ...data,
+        certainty: data.certainty * 100,
+      });
+    } catch (err: any) {
+      setError(err.message || 'Analysis failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (
+      file &&
+      !result &&
+      !loading &&
+      !error &&
+      localStorage.getItem('autoAnalyze') === 'true'
+    ) {
+      handleAnalyze();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [file]);
 
   const handleFile = useCallback((f: File) => {
     if (!f.type.startsWith('image/')) {
@@ -42,23 +85,6 @@ export default function ModelUpload() {
     },
     [handleFile],
   );
-
-  const handleAnalyze = async () => {
-    if (!file) return;
-    setLoading(true);
-    setError('');
-    try {
-      const data = await analyzeImage(file);
-      setResult({
-        ...data,
-        certainty: data.certainty * 100,
-      });
-    } catch (err: any) {
-      setError(err.message || 'Analysis failed');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleReset = () => {
     setFile(null);
@@ -197,7 +223,7 @@ export default function ModelUpload() {
         )}
 
         {result && (
-          <div className='result-card'>
+          <div className='result-card' ref={resultRef}>
             <div className='result-header'>
               <h2>Analysis Result</h2>
               <span

@@ -21,6 +21,7 @@
   --border-color: #e2e8f0;
   --sidebar-bg: linear-gradient(135deg, hsl(221, 83%, 40%), hsl(221, 83%, 53%));
   --radius: 12px;
+  --danger-bg: #fef2f2;
 }
 
 .dark {
@@ -31,6 +32,7 @@
   --muted-text: #94a3b8;
   --border-color: #334155;
   --sidebar-bg: linear-gradient(135deg, hsl(221, 83%, 20%), hsl(221, 83%, 30%));
+  --danger-bg: rgba(239, 68, 68, 0.15);
 }
 
 * {
