@@ -16,6 +16,17 @@
   margin: 4px 0 0 0;
 }
 
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.headerActions {
+  flex-shrink: 0;
+}
+
 .historyList {
   display: flex;
   flex-direction: column;
@@ -34,6 +45,7 @@
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
+  position: relative;
 }
 
 .historyCard:hover {
@@ -205,4 +217,61 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.deleteEntryBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--input-background);
+  color: var(--muted-text);
+  border: 1px solid var(--border-color);
+  font-size: 1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  opacity: 0;
+}
+
+.historyCard:hover .deleteEntryBtn {
+  opacity: 1;
+}
+
+.deleteEntryBtn:hover {
+  background: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
+}
+
+.confirmDialog {
+  background: var(--card-background);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 400px;
+  text-align: center;
+}
+
+.confirmDialog p {
+  margin: 0 0 20px 0;
+  font-size: 1rem;
+  color: var(--main-text);
+}
+
+.confirmActions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.confirmActions button {
+  min-width: 80px;
 }

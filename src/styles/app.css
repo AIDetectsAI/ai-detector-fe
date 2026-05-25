@@ -736,3 +736,85 @@
     min-width: auto;
   }
 }
+
+/* ===== Password Change Popup ===== */
+
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: popupFadeIn 0.15s ease-out forwards;
+}
+
+.popup-content {
+  background: var(--card-background);
+  border-radius: 12px;
+  padding: 32px 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 360px;
+  width: 90%;
+  animation: popupScaleIn 0.15s ease-out forwards;
+}
+
+.popup-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+.popup-icon-error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.popup-icon-success {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+
+.popup-message {
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+}
+
+.popup-message-error {
+  color: #ef4444;
+}
+
+.popup-message-success {
+  color: #22c55e;
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popupScaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
