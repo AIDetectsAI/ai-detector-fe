@@ -1,0 +1,277 @@
+.historyPage {
+  padding: 16px 0;
+}
+
+.pageHeader {
+  margin-bottom: 24px;
+}
+
+.pageHeader h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.pageHeader p {
+  color: var(--muted-text);
+  margin: 4px 0 0 0;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.headerActions {
+  flex-shrink: 0;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.historyCard {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  position: relative;
+}
+
+.historyCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.imageContainer {
+  position: relative;
+  cursor: zoom-in;
+  flex-shrink: 0;
+}
+
+.imageContainer img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  transition: opacity 0.2s;
+}
+
+.imageContainer:hover img {
+  opacity: 0.8;
+}
+
+.cardContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.date {
+  font-weight: 600;
+  color: var(--main-text);
+  font-size: 1rem;
+}
+
+.model {
+  font-size: 0.75rem;
+  color: var(--muted-text);
+  background: var(--input-background);
+  padding: 4px 8px;
+  border-radius: 12px;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.resultBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  padding-left: 16px;
+  border-left: 1px solid var(--border-color);
+}
+
+.score {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  animation: fadeIn 0.15s ease-out forwards;
+}
+
+.modalContent {
+  position: relative;
+  background: var(--card-background);
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.95);
+  animation: scaleIn 0.15s ease-out forwards;
+}
+
+.modalContent img {
+  border-radius: 8px;
+  max-width: 100%;
+  max-height: 350px;
+  width: 350px;
+  object-fit: contain;
+}
+
+.closeButton {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--card-background);
+  color: var(--main-text);
+  border: 1px solid var(--border-color);
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.closeButton:hover {
+  background: var(--input-background);
+  transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modalResultInfo {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.modalScore {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.modalLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.deleteEntryBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--input-background);
+  color: var(--muted-text);
+  border: 1px solid var(--border-color);
+  font-size: 1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  opacity: 0;
+}
+
+.historyCard:hover .deleteEntryBtn {
+  opacity: 1;
+}
+
+.deleteEntryBtn:hover {
+  background: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
+}
+
+.confirmDialog {
+  background: var(--card-background);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 400px;
+  text-align: center;
+}
+
+.confirmDialog p {
+  margin: 0 0 20px 0;
+  font-size: 1rem;
+  color: var(--main-text);
+}
+
+.confirmActions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.confirmActions button {
+  min-width: 80px;
+}

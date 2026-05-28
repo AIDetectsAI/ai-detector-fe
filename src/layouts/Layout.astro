@@ -8,6 +8,11 @@ import Footer from '../components/Footer.astro';
   <head>
     <meta charset="UTF-8" />
     <title>{title}</title>
+    <script is:inline>
+      if (localStorage.getItem('darkMode') === 'true') {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
   </head>
   <body class="min-h-screen m-0 flex flex-col">
     <div class="flex flex-1">

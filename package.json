@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.8",
     "@astrojs/react": "^4.3.0",
     "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/vite": "^4.1.11",
@@ -18,7 +19,8 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwind-variants": "^3.1.0",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@types/react": "^19.1.12",

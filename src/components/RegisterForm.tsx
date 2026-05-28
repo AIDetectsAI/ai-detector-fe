@@ -32,79 +32,86 @@ export default function RegisterForm() {
       setAuth(data.token, login);
       window.location.href = '/';
     } catch (err: any) {
-      setError(err.message || 'Registration failed');
+      let errorMessage = err.message || 'Registration failed';
+      if (errorMessage.includes('already exists')) {
+        errorMessage = 'Username is already taken.';
+      } else if (errorMessage.includes('invalid data')) {
+        errorMessage =
+          'Invalid form data. Make sure your email is correct and try again.';
+      }
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="auth-card">
-      <div className="auth-header">
-        <h1 className="auth-title">Create Account</h1>
-        <p className="auth-subtitle">Join AI Detector</p>
+    <div className='auth-card'>
+      <div className='auth-header'>
+        <h1 className='auth-title'>Create Account</h1>
+        <p className='auth-subtitle'>Join AI Detector</p>
       </div>
 
-      {error && <div className="auth-error">{error}</div>}
-      {success && <div className="auth-success">{success}</div>}
+      {error && <div className='auth-error'>{error}</div>}
+      {success && <div className='auth-success'>{success}</div>}
 
-      <form onSubmit={handleSubmit} className="auth-form">
-        <div className="form-group">
-          <label htmlFor="login">Username</label>
+      <form onSubmit={handleSubmit} className='auth-form'>
+        <div className='form-group'>
+          <label htmlFor='login'>Username</label>
           <input
-            id="login"
-            type="text"
+            id='login'
+            type='text'
             value={login}
             onChange={(e) => setLogin(e.target.value)}
-            placeholder="Choose a username"
+            placeholder='Choose a username'
             required
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
+        <div className='form-group'>
+          <label htmlFor='email'>Email</label>
           <input
-            id="email"
-            type="email"
+            id='email'
+            type='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
+            placeholder='Enter your email'
             required
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
+        <div className='form-group'>
+          <label htmlFor='password'>Password</label>
           <input
-            id="password"
-            type="password"
+            id='password'
+            type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Create a password"
+            placeholder='Create a password'
             required
             minLength={6}
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
+        <div className='form-group'>
+          <label htmlFor='confirmPassword'>Confirm Password</label>
           <input
-            id="confirmPassword"
-            type="password"
+            id='confirmPassword'
+            type='password'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm your password"
+            placeholder='Confirm your password'
             required
           />
         </div>
 
-        <button type="submit" className="auth-submit" disabled={loading}>
+        <button type='submit' className='auth-submit' disabled={loading}>
           {loading ? 'Creating account...' : 'Create Account'}
         </button>
       </form>
 
-      <p className="auth-switch">
-        Already have an account? <a href="/login">Sign in</a>
+      <p className='auth-switch'>
+        Already have an account? <a href='/login'>Sign in</a>
       </p>
     </div>
   );

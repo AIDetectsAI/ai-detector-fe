@@ -4,8 +4,16 @@
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(ellipse at top left, rgba(59, 130, 246, 0.15), transparent 50%),
-    radial-gradient(ellipse at bottom right, rgba(59, 130, 246, 0.1), transparent 50%),
+    radial-gradient(
+      ellipse at top left,
+      rgba(59, 130, 246, 0.15),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at bottom right,
+      rgba(59, 130, 246, 0.1),
+      transparent 50%
+    ),
     var(--main-background);
   padding: 1rem;
 }
@@ -21,8 +29,14 @@
 }
 
 @keyframes authSlideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .auth-header {
@@ -70,7 +84,9 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
   margin-top: 0.5rem;
 }
 
@@ -126,7 +142,9 @@
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
   text-decoration: none;
 }
 
