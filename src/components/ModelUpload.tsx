@@ -7,6 +7,18 @@ import {
 } from 'react';
 import { analyzeImage, type AnalysisResult } from '../lib/api';
 
+const MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024;
+
+const ACCEPTED_IMAGE_MIME_TYPES = new Set<string>([
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/gif',
+  'image/bmp',
+  'image/x-ms-bmp',
+  'image/x-windows-bmp',
+]);
+
 export default function ModelUpload() {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -54,8 +66,18 @@ export default function ModelUpload() {
   }, [file]);
 
   const handleFile = useCallback((f: File) => {
-    if (!f.type.startsWith('image/')) {
+    if (!f.type || !f.type.startsWith('image/')) {
       setError('Please select an image file');
+      return;
+    }
+
+    if (!ACCEPTED_IMAGE_MIME_TYPES.has(f.type)) {
+      setError('Supported formats: JPG, PNG, GIF, BMP');
+      return;
+    }
+
+    if (f.size > MAX_FILE_SIZE_BYTES) {
+      setError('File too large. Maximum allowed size is 50MB');
       return;
     }
     setFile(f);
@@ -126,7 +148,7 @@ export default function ModelUpload() {
             <input
               ref={inputRef}
               type='file'
-              accept='image/*'
+              accept='image/jpeg,image/jpg,image/pjpeg,image/png,image/gif,image/bmp,image/x-ms-bmp,image/x-windows-bmp'
               onChange={(e) =>
                 e.target.files?.[0] && handleFile(e.target.files[0])
               }
@@ -149,7 +171,7 @@ export default function ModelUpload() {
             </svg>
             <p className='upload-text'>Drag & drop an image here</p>
             <p className='upload-subtext'>or click to browse files</p>
-            <p className='upload-formats'>Supports: JPG, PNG, WEBP, GIF</p>
+            <p className='upload-formats'>Supports: JPG, PNG, GIF, BMP</p>
           </div>
         ) : (
           <div className='preview-container'>
