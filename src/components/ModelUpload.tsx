@@ -169,9 +169,9 @@ export default function ModelUpload() {
               <polyline points='17 8 12 3 7 8' />
               <line x1='12' y1='3' x2='12' y2='15' />
             </svg>
-            <p className='upload-text'>Drag & drop an image here</p>
-            <p className='upload-subtext'>or click to browse files</p>
-            <p className='upload-formats'>Supports: JPG, PNG, GIF, BMP</p>
+            <p className="upload-text">Drag & drop an image here</p>
+            <p className="upload-subtext">or click to browse files</p>
+            <p className="upload-formats">Supports: Any image file</p>
           </div>
         ) : (
           <div className='preview-container'>
