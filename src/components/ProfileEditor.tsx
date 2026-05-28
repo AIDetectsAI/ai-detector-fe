@@ -1,5 +1,5 @@
 import { useState, useEffect, type FormEvent } from 'react';
-import { getUsername, fetchCurrentUser } from '../lib/api';
+import { getUsername, fetchCurrentUser, changePassword } from '../lib/api';
 
 export default function ProfileEditor() {
   const [username, setUsername] = useState(getUsername());
@@ -8,8 +8,11 @@ export default function ProfileEditor() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [changingPassword, setChangingPassword] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordMessage, setPasswordMessage] = useState('');
 
   useEffect(() => {
     fetchCurrentUser()
@@ -30,16 +33,44 @@ export default function ProfileEditor() {
 
   const handlePasswordChange = (e: FormEvent) => {
     e.preventDefault();
+    setPasswordMessage('');
+    setPasswordError('');
     if (newPassword !== confirmPassword) {
-      setError('Passwords do not match');
+      setPasswordError('Passwords do not match');
       return;
     }
-    setMessage('Password changed successfully (mock)');
-    setError('');
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
-    setTimeout(() => setMessage(''), 3000);
+
+    setChangingPassword(true);
+    changePassword(currentPassword, newPassword)
+      .then(() => {
+        setPasswordMessage('Password changed successfully');
+        setCurrentPassword('');
+        setNewPassword('');
+        setConfirmPassword('');
+      })
+      .catch((err: any) => {
+        const msg = err?.message || 'Failed to change password';
+        if (msg.includes('Invalid current password')) {
+          setPasswordError('Incorrect current password');
+        } else if (msg.includes('Password change is only available')) {
+          setPasswordError(
+            'Password change is not available for OAuth accounts',
+          );
+        } else if (
+          msg.includes('invalid data') ||
+          msg.includes('password must')
+        ) {
+          setPasswordError('Password is too weak');
+        } else {
+          setPasswordError(msg);
+        }
+      })
+      .finally(() => setChangingPassword(false));
+  };
+
+  const closePasswordPopup = () => {
+    setPasswordError('');
+    setPasswordMessage('');
   };
 
   return (
@@ -126,7 +157,7 @@ export default function ProfileEditor() {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
-                  minLength={6}
+                  minLength={8}
                 />
               </div>
               <div className='form-group'>
@@ -139,10 +170,66 @@ export default function ProfileEditor() {
                   required
                 />
               </div>
-              <button type='submit' className='btn-primary'>
-                Change Password
+              <button
+                type='submit'
+                className='btn-primary'
+                disabled={changingPassword}
+              >
+                {changingPassword ? 'Changing...' : 'Change Password'}
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Password change result popup */}
+      {(passwordError || passwordMessage) && (
+        <div className='popup-overlay' onClick={closePasswordPopup}>
+          <div className='popup-content' onClick={(e) => e.stopPropagation()}>
+            {passwordError && (
+              <>
+                <div className='popup-icon popup-icon-error'>
+                  <svg
+                    width='32'
+                    height='32'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    strokeWidth='2'
+                  >
+                    <circle cx='12' cy='12' r='10' />
+                    <line x1='15' y1='9' x2='9' y2='15' />
+                    <line x1='9' y1='9' x2='15' y2='15' />
+                  </svg>
+                </div>
+                <p className='popup-message popup-message-error'>
+                  {passwordError}
+                </p>
+              </>
+            )}
+            {passwordMessage && (
+              <>
+                <div className='popup-icon popup-icon-success'>
+                  <svg
+                    width='32'
+                    height='32'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    strokeWidth='2'
+                  >
+                    <circle cx='12' cy='12' r='10' />
+                    <polyline points='16 10 11 15 8 12' />
+                  </svg>
+                </div>
+                <p className='popup-message popup-message-success'>
+                  {passwordMessage}
+                </p>
+              </>
+            )}
+            <button className='btn-primary' onClick={closePasswordPopup}>
+              OK
+            </button>
           </div>
         </div>
       )}
