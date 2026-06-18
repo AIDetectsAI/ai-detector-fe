@@ -184,6 +184,8 @@ export default function HistoryList() {
               <div className={styles.cardContent}>
                 <span className={styles.date}>
                   {formatDate(entry.createdAt)}
+                  <br />
+                  {entry.caption}     
                 </span>
                 <span className={styles.model}>{entry.model}</span>
               </div>
