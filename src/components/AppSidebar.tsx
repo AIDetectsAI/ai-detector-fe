@@ -1,16 +1,12 @@
 import { removeAuth } from '../lib/api';
+import { useTranslation } from 'react-i18next';
+import '../locales/config';
 
 interface NavItem {
   label: string;
   path: string;
   icon: string;
 }
-
-const navItems: NavItem[] = [
-  { label: 'Detect AI', path: '/', icon: 'search' },
-  { label: 'History', path: '/history', icon: 'clock' },
-  { label: 'Settings', path: '/settings', icon: 'settings' },
-];
 
 function NavIcon({ name }: { name: string }) {
   const props = {
@@ -70,6 +66,15 @@ interface Props {
 }
 
 export default function AppSidebar({ currentPath }: Props) {
+
+  const { t } = useTranslation();
+
+  const navItems: NavItem[] = [
+  { label: t('detect-ai'), path: '/', icon: 'search' },
+  { label: t('history'), path: '/history', icon: 'clock' },
+  { label: t('settings'), path: '/settings', icon: 'settings' },
+];
+
   const handleLogout = () => {
     removeAuth();
     window.location.href = '/login';
@@ -93,7 +98,7 @@ export default function AppSidebar({ currentPath }: Props) {
             <path d='M2 17l10 5 10-5' />
             <path d='M2 12l10 5 10-5' />
           </svg>
-          <span>AI Detector</span>
+          <span>{t('ai-detector')}</span>
         </a>
 
         <nav className='sidebar-nav'>
@@ -116,14 +121,14 @@ export default function AppSidebar({ currentPath }: Props) {
           className={`sidebar-nav-item ${currentPath === '/profile' ? 'active' : ''}`}
         >
           <NavIcon name='user' />
-          <span>Profile</span>
+          <span>{t('profile')}</span>
         </a>
         <button
           onClick={handleLogout}
           className='sidebar-nav-item sidebar-logout'
         >
           <NavIcon name='logout' />
-          <span>Logout</span>
+          <span>{t('logout')}</span>
         </button>
       </div>
     </aside>

@@ -1,7 +1,10 @@
 import { useState, type FormEvent } from 'react';
 import { registerUser, loginUser, setAuth } from '../lib/api';
+import { useTranslation } from 'react-i18next';
+import '../locales/config';
 
 export default function RegisterForm() {
+  const { t } = useTranslation();
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,12 +19,12 @@ export default function RegisterForm() {
     setSuccess('');
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('passwords-do-not-match'));
       return;
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters');
+      setError(t('password-must-be-at-least-6-characters'));
       return;
     }
 
@@ -32,12 +35,12 @@ export default function RegisterForm() {
       setAuth(data.token, login);
       window.location.href = '/';
     } catch (err: any) {
-      let errorMessage = err.message || 'Registration failed';
-      if (errorMessage.includes('already exists')) {
-        errorMessage = 'Username is already taken.';
-      } else if (errorMessage.includes('invalid data')) {
+      let errorMessage = err.message || t('registration-failed');
+      if (errorMessage.includes(t('already-exists'))) {
+        errorMessage = t('username-is-already-taken');
+      } else if (errorMessage.includes(t('invalid-data'))) {
         errorMessage =
-          'Invalid form data. Make sure your email is correct and try again.';
+          t('invalid-form-data-make-sure-your-email-is-correct-and-try-again');
       }
       setError(errorMessage);
     } finally {
@@ -48,8 +51,8 @@ export default function RegisterForm() {
   return (
     <div className='auth-card'>
       <div className='auth-header'>
-        <h1 className='auth-title'>Create Account</h1>
-        <p className='auth-subtitle'>Join AI Detector</p>
+        <h1 className='auth-title'>{t('create-account')}</h1>
+        <p className='auth-subtitle'>{t('join-ai-detector')}</p>
       </div>
 
       {error && <div className='auth-error'>{error}</div>}
@@ -57,61 +60,61 @@ export default function RegisterForm() {
 
       <form onSubmit={handleSubmit} className='auth-form'>
         <div className='form-group'>
-          <label htmlFor='login'>Username</label>
+          <label htmlFor='login'>{t('username')}</label>
           <input
             id='login'
             type='text'
             value={login}
             onChange={(e) => setLogin(e.target.value)}
-            placeholder='Choose a username'
+            placeholder={t('choose-a-username')}
             required
           />
         </div>
 
         <div className='form-group'>
-          <label htmlFor='email'>Email</label>
+          <label htmlFor='email'>{t('email')}</label>
           <input
             id='email'
             type='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder='Enter your email'
+            placeholder={t('enter-your-email')}
             required
           />
         </div>
 
         <div className='form-group'>
-          <label htmlFor='password'>Password</label>
+          <label htmlFor='password'>{t('password')}</label>
           <input
             id='password'
             type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder='Create a password'
+            placeholder={t('create-a-password')}
             required
             minLength={6}
           />
         </div>
 
         <div className='form-group'>
-          <label htmlFor='confirmPassword'>Confirm Password</label>
+          <label htmlFor='confirmPassword'>{t('confirm-password')}</label>
           <input
             id='confirmPassword'
             type='password'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder='Confirm your password'
+            placeholder={t('confirm-your-password')}
             required
           />
         </div>
 
         <button type='submit' className='auth-submit' disabled={loading}>
-          {loading ? 'Creating account...' : 'Create Account'}
+          {loading ? t('creating-account') : t('create-account')}
         </button>
       </form>
 
       <p className='auth-switch'>
-        Already have an account? <a href='/login'>Sign in</a>
+        {t('already-have-an-account')} <a href='/login'>{t('sign-in-0')}</a>
       </p>
     </div>
   );
