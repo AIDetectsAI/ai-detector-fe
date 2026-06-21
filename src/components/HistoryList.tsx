@@ -6,6 +6,9 @@ import {
   type HistoryEntry,
 } from '../lib/api';
 import styles from './HistoryList.module.css';
+import { useTranslation } from 'react-i18next';
+import '../locales/config';
+import type { TFunction } from 'i18next';
 
 function getResultColor(chance: number): string {
   if (chance >= 70) return '#ef4444';
@@ -13,10 +16,10 @@ function getResultColor(chance: number): string {
   return '#22c55e';
 }
 
-function getResultLabel(chance: number): string {
-  if (chance >= 70) return 'Likely AI';
-  if (chance >= 40) return 'Uncertain';
-  return 'Likely Real';
+function getResultLabel(chance: number, t: TFunction): string {
+  if (chance >= 70) return t('likely-ai');
+  if (chance >= 40) return t('uncertain');
+  return t('likely-real');
 }
 
 function formatDate(iso: string): string {
@@ -31,6 +34,7 @@ function formatDate(iso: string): string {
 }
 
 export default function HistoryList() {
+  const { t } = useTranslation();
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -45,12 +49,12 @@ export default function HistoryList() {
       .then(setHistory)
       .catch((e) => {
         const msg = e.message || '';
-        if (msg.includes('Not authenticated')) {
-          setError('You are not logged in. Please log in to view history.');
-        } else if (msg.includes('User not found')) {
-          setError('User account could not be found.');
+        if (msg.includes(t('not-authenticated'))) {
+          setError(t('you-are-not-logged-in-please-log-in-to-view-history'));
+        } else if (msg.includes(t('user-not-found'))) {
+          setError(t('user-account-could-not-be-found'));
         } else {
-          setError('Failed to load history.');
+          setError(t('failed-to-load-history'));
         }
       })
       .finally(() => setLoading(false));
@@ -79,7 +83,7 @@ export default function HistoryList() {
       closeModal();
       setHistory([]);
     } catch (err: any) {
-      setError(err?.message || 'Failed to clear history.');
+      setError(err?.message || t('failed-to-clear-history'));
     } finally {
       setClearing(false);
     }
@@ -102,7 +106,7 @@ export default function HistoryList() {
       await deleteHistoryEntry(entryId);
       setHistory((prev) => prev.filter((e) => e.id !== entryId));
     } catch (err: any) {
-      setError(err?.message || 'Failed to delete entry.');
+      setError(err?.message || t('failed-to-delete-entry'));
     }
   };
 
@@ -110,8 +114,8 @@ export default function HistoryList() {
     <div className={styles.historyPage}>
       <div className={styles.headerRow}>
         <div className={styles.pageHeader}>
-          <h1>Analysis History</h1>
-          <p>Review your past image analyses</p>
+          <h1>{t('analysis-history')}</h1>
+          <p>{t('review-your-past-image-analyses')}</p>
         </div>
 
         {!loading && !error && history.length > 0 && (
@@ -135,14 +139,14 @@ export default function HistoryList() {
                 <line x1='10' y1='11' x2='10' y2='17' />
                 <line x1='14' y1='11' x2='14' y2='17' />
               </svg>
-              {clearing ? 'Clearing...' : 'Clear history'}
+              {clearing ? 'Clearing...' : t('clear-history')}
             </button>
           </div>
         )}
       </div>
 
       {loading ? (
-        <p style={{ color: 'var(--muted-text)' }}>Loading history...</p>
+        <p style={{ color: 'var(--muted-text)' }}>{t('loading-history')}</p>
       ) : error ? (
         <div className={styles.uploadError}>{error}</div>
       ) : history.length === 0 ? (
@@ -160,8 +164,7 @@ export default function HistoryList() {
             <line x1='12' y1='8' x2='12.01' y2='8' />
           </svg>
           <span>
-            Brak wyników. Prześlij zdjęcie, aby zobaczyć tutaj analizy.
-          </span>
+            {t('no-results-upload-an-image-to-see-analysis-here')} </span>
         </div>
       ) : (
         <div className={styles.historyList}>
@@ -170,11 +173,11 @@ export default function HistoryList() {
               <div
                 className={styles.imageContainer}
                 onClick={() => openModal(entry)}
-                title='Click to enlarge'
+                title={t('click-to-enlarge')}
               >
                 <img
                   src={entry.photoUrl}
-                  alt='Analyzed image'
+                  alt={t('analyzed-image')}
                   onError={(e) => {
                     (e.currentTarget as HTMLImageElement).src =
                       '/assets/placeholder-image.png';
@@ -200,13 +203,13 @@ export default function HistoryList() {
                   className={styles.label}
                   style={{ color: getResultColor(entry.chance) }}
                 >
-                  {getResultLabel(entry.chance)}
+                  {getResultLabel(entry.chance, t)}
                 </span>
               </div>
               <button
                 className={styles.deleteEntryBtn}
                 onClick={() => handleDeleteEntry(entry.id)}
-                title='Delete entry'
+                title={t('delete-entry')}
               >
                 ×
               </button>
@@ -237,7 +240,7 @@ export default function HistoryList() {
                 className={styles.modalLabel}
                 style={{ color: getResultColor(selectedEntry.chance) }}
               >
-                {getResultLabel(selectedEntry.chance)}
+                {getResultLabel(selectedEntry.chance, t)}
               </span>
             </div>
           </div>
@@ -254,20 +257,18 @@ export default function HistoryList() {
             className={styles.confirmDialog}
             onClick={(e) => e.stopPropagation()}
           >
-            <p>Are you sure you want to delete this entry?</p>
+            <p>{t('are-you-sure-you-want-to-delete-this-entry')}</p>
             <div className={styles.confirmActions}>
               <button
                 className='btn-danger'
                 onClick={() => performDeleteEntry(confirmDeleteId)}
               >
-                Delete
-              </button>
+                {t('delete')} </button>
               <button
                 className='btn-secondary'
                 onClick={() => setConfirmDeleteId(null)}
               >
-                Cancel
-              </button>
+                {t('cancel')} </button>
             </div>
           </div>
         </div>
@@ -284,18 +285,15 @@ export default function HistoryList() {
             onClick={(e) => e.stopPropagation()}
           >
             <p>
-              Are you sure you want to clear all history? This cannot be undone.
-            </p>
+              {t('are-you-sure-you-want-to-clear-all-history-this-cannot-be-undone')} </p>
             <div className={styles.confirmActions}>
               <button className='btn-danger' onClick={performClearHistory}>
-                Clear all
-              </button>
+                {t('clear-all')} </button>
               <button
                 className='btn-secondary'
                 onClick={() => setConfirmClearAll(false)}
               >
-                Cancel
-              </button>
+                {t('cancel')} </button>
             </div>
           </div>
         </div>

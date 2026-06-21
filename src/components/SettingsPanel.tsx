@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { deleteAccount, removeAuth } from '../lib/api';
+import { useTranslation } from 'react-i18next';
+import '../locales/config';
 
 export default function SettingsPanel() {
+  const { t, i18n } = useTranslation();
   const [darkMode, setDarkMode] = useState(false);
   const [notifications, setNotifications] = useState(true);
   const [autoAnalyze, setAutoAnalyze] = useState(false);
   const [confirmHistoryDelete, setConfirmHistoryDelete] = useState(true);
-  const [language, setLanguage] = useState('en');
   const [deletingAccount, setDeletingAccount] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -18,7 +20,6 @@ export default function SettingsPanel() {
     setConfirmHistoryDelete(
       localStorage.getItem('confirmHistoryDelete') !== 'false',
     );
-    setLanguage(localStorage.getItem('language') || 'en');
   }, []);
 
   const handleDarkMode = (enabled: boolean) => {
@@ -43,7 +44,7 @@ export default function SettingsPanel() {
   };
 
   const handleLanguage = (lang: string) => {
-    setLanguage(lang);
+    i18n.changeLanguage(lang);
     localStorage.setItem('language', lang);
   };
 
@@ -52,7 +53,7 @@ export default function SettingsPanel() {
     setError('');
 
     const confirmed = window.confirm(
-      'Are you sure you want to permanently delete your account and all data?',
+      t('are-you-sure-you-want-to-permanently-delete-your-account-and-all-data'),
     );
     if (!confirmed) return;
 
@@ -62,7 +63,7 @@ export default function SettingsPanel() {
       removeAuth();
       window.location.href = '/login';
     } catch (err: any) {
-      setError(err?.message || 'Failed to delete account');
+      setError(err?.message || t('failed-to-delete-account'));
     } finally {
       setDeletingAccount(false);
     }
@@ -71,8 +72,8 @@ export default function SettingsPanel() {
   return (
     <div className='settings-page'>
       <div className='page-header'>
-        <h1>Settings</h1>
-        <p>Customize your experience</p>
+        <h1>{t('settings')}</h1>
+        <p>{t('customize-your-experience')}</p>
       </div>
 
       {message && <div className='auth-success'>{message}</div>}
@@ -80,13 +81,12 @@ export default function SettingsPanel() {
 
       <div className='settings-sections'>
         <div className='settings-section'>
-          <h2>Appearance</h2>
+          <h2>{t('appearance')}</h2>
           <div className='setting-item'>
             <div className='setting-info'>
-              <span className='setting-label'>Dark Mode</span>
+              <span className='setting-label'>{t('dark-mode')}</span>
               <span className='setting-desc'>
-                Switch between light and dark theme
-              </span>
+                {t('switch-between-light-and-dark-theme')} </span>
             </div>
             <label className='toggle'>
               <input
@@ -99,30 +99,28 @@ export default function SettingsPanel() {
           </div>
           <div className='setting-item'>
             <div className='setting-info'>
-              <span className='setting-label'>Language</span>
+              <span className='setting-label'>{t('language')}</span>
               <span className='setting-desc'>
-                Select your preferred language
-              </span>
+                {t('select-your-preferred-language')} </span>
             </div>
             <select
-              value={language}
+              value={i18n.resolvedLanguage}
               onChange={(e) => handleLanguage(e.target.value)}
               className='setting-select'
             >
-              <option value='en'>English</option>
-              <option value='pl'>Polski</option>
+              <option value='en'>{t('english')}</option>
+              <option value='pl'>{t('polish')}</option>
             </select>
           </div>
         </div>
 
         <div className='settings-section'>
-          <h2>Analysis</h2>
+          <h2>{t('analysis')}</h2>
           <div className='setting-item'>
             <div className='setting-info'>
-              <span className='setting-label'>Auto-analyze on upload</span>
+              <span className='setting-label'>{t('auto-analyze-on-upload')}</span>
               <span className='setting-desc'>
-                Automatically start analysis when an image is uploaded
-              </span>
+                {t('automatically-start-analysis-when-an-image-is-uploaded')} </span>
             </div>
             <label className='toggle'>
               <input
@@ -136,16 +134,13 @@ export default function SettingsPanel() {
         </div>
 
         <div className='settings-section'>
-          <h2>History</h2>
+          <h2>{t('history')}</h2>
           <div className='setting-item'>
             <div className='setting-info'>
               <span className='setting-label'>
-                Pytaj przed usunięciem elementu z historii
-              </span>
+                {t('ask-before-deleting-history-entries')} </span>
               <span className='setting-desc'>
-                Show a confirmation popup before deleting individual history
-                entries
-              </span>
+                {t('show-a-confirmation-popup-before-deleting-individual-history-entries')} </span>
             </div>
             <label className='toggle'>
               <input
@@ -159,13 +154,12 @@ export default function SettingsPanel() {
         </div>
 
         <div className='settings-section'>
-          <h2>Notifications</h2>
+          <h2>{t('notifications')}</h2>
           <div className='setting-item'>
             <div className='setting-info'>
-              <span className='setting-label'>Email Notifications</span>
+              <span className='setting-label'>{t('email-notifications')}</span>
               <span className='setting-desc'>
-                Receive email updates about your analyses
-              </span>
+                {t('receive-email-updates-about-your-analyses')} </span>
             </div>
             <label className='toggle'>
               <input
@@ -179,20 +173,19 @@ export default function SettingsPanel() {
         </div>
 
         <div className='settings-section'>
-          <h2>Danger Zone</h2>
+          <h2>{t('danger-zone')}</h2>
           <div className='setting-item danger'>
             <div className='setting-info'>
-              <span className='setting-label'>Delete Account</span>
+              <span className='setting-label'>{t('delete-account')}</span>
               <span className='setting-desc'>
-                Permanently delete your account and all data
-              </span>
+                {t('permanently-delete-your-account-and-all-data')} </span>
             </div>
             <button
               className='btn-danger'
               onClick={handleDeleteAccount}
               disabled={deletingAccount}
             >
-              {deletingAccount ? 'Deleting...' : 'Delete Account'}
+              {deletingAccount ? t('deleting') : t('delete-account')}
             </button>
           </div>
         </div>

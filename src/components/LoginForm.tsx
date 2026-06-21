@@ -5,8 +5,12 @@ import {
   getGoogleOAuthUrl,
   getGitHubOAuthUrl,
 } from '../lib/api';
+import { useTranslation } from 'react-i18next';
+import '../locales/config';
+
 
 export default function LoginForm() {
+  const { t } = useTranslation();
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -21,14 +25,14 @@ export default function LoginForm() {
       setAuth(data.token, login);
       window.location.href = '/';
     } catch (err: any) {
-      let errorMessage = err.message || 'Login failed';
+      let errorMessage = err.message || t('login-failed');
       if (
-        errorMessage.includes('User does not exist') ||
-        errorMessage.includes('invalid password')
+        errorMessage.includes(t('user-does-not-exist')) ||
+        errorMessage.includes(t('invalid-password'))
       ) {
-        errorMessage = 'Invalid username or password.';
-      } else if (errorMessage.includes('invalid data')) {
-        errorMessage = 'Invalid form data. Please check your input.';
+        errorMessage = t('invalid-username-or-password');
+      } else if (errorMessage.includes(t('invalid-data'))) {
+        errorMessage = t('invalid-form-data-please-check-your-input');
       }
       setError(errorMessage);
     } finally {
@@ -39,44 +43,44 @@ export default function LoginForm() {
   return (
     <div className='auth-card'>
       <div className='auth-header'>
-        <h1 className='auth-title'>Welcome Back</h1>
-        <p className='auth-subtitle'>Sign in to AI Detector</p>
+        <h1 className='auth-title'>{t('welcome-back')}</h1>
+        <p className='auth-subtitle'>{t('sign-in-to-ai-detector')}</p>
       </div>
 
       {error && <div className='auth-error'>{error}</div>}
 
       <form onSubmit={handleSubmit} className='auth-form'>
         <div className='form-group'>
-          <label htmlFor='login'>Username</label>
+          <label htmlFor='login'>{t('username')}</label>
           <input
             id='login'
             type='text'
             value={login}
             onChange={(e) => setLogin(e.target.value)}
-            placeholder='Enter your username'
+            placeholder={t('enter-your-username')}
             required
           />
         </div>
 
         <div className='form-group'>
-          <label htmlFor='password'>Password</label>
+          <label htmlFor='password'>{t('password')}</label>
           <input
             id='password'
             type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder='Enter your password'
+            placeholder={t('enter-your-password')}
             required
           />
         </div>
 
         <button type='submit' className='auth-submit' disabled={loading}>
-          {loading ? 'Signing in...' : 'Sign In'}
+          {loading ? t('signing-in') : t('sign-in')}
         </button>
       </form>
 
       <div className='auth-divider'>
-        <span>or continue with</span>
+        <span>{t('or-continue-with')}</span>
       </div>
 
       <div className='oauth-buttons'>
@@ -110,7 +114,7 @@ export default function LoginForm() {
       </div>
 
       <p className='auth-switch'>
-        Don't have an account? <a href='/register'>Sign up</a>
+        {t('dont-have-an-account')} <a href='/register'>{t('sign-up')}</a>
       </p>
     </div>
   );
