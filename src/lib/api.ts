@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:8081';
+const API_BASE = '';
 
 async function getErrorMessage(res: Response): Promise<string> {
   const contentType = res.headers.get('content-type') || '';

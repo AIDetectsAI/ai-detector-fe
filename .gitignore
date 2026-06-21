@@ -1,6 +1,9 @@
 # build output
 dist/
 
+#nginx certs
+nginx/certs/
+
 # generated types
 .astro/
 
