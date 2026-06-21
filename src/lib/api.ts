@@ -182,6 +182,7 @@ export interface HistoryEntry {
   model: string;
   chance: number;
   createdAt: string;
+  caption: string;
 }
 
 export async function fetchHistory(): Promise<HistoryEntry[]> {
