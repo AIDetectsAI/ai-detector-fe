@@ -1,7 +1,10 @@
 import { useState, useEffect, type FormEvent } from 'react';
 import { getUsername, fetchCurrentUser, changePassword } from '../lib/api';
+import { useTranslation } from 'react-i18next';
+import '../locales/config';
 
 export default function ProfileEditor() {
+  const { t } = useTranslation();
   const [username, setUsername] = useState(getUsername());
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(true);
@@ -20,13 +23,13 @@ export default function ProfileEditor() {
         setUsername(user.login);
         setEmail(user.email);
       })
-      .catch(() => setError('Failed to load profile'))
+      .catch(() => setError(t('failed-to-load-profile')))
       .finally(() => setLoading(false));
   }, []);
 
   const handleProfileUpdate = (e: FormEvent) => {
     e.preventDefault();
-    setMessage('Profile updated successfully (mock)');
+    setMessage(t('profile-updated-successfully-mock'));
     setError('');
     setTimeout(() => setMessage(''), 3000);
   };
@@ -36,31 +39,31 @@ export default function ProfileEditor() {
     setPasswordMessage('');
     setPasswordError('');
     if (newPassword !== confirmPassword) {
-      setPasswordError('Passwords do not match');
+      setPasswordError(t('passwords-do-not-match'));
       return;
     }
 
     setChangingPassword(true);
     changePassword(currentPassword, newPassword)
       .then(() => {
-        setPasswordMessage('Password changed successfully');
+        setPasswordMessage(t('password-changed-successfully'));
         setCurrentPassword('');
         setNewPassword('');
         setConfirmPassword('');
       })
       .catch((err: any) => {
-        const msg = err?.message || 'Failed to change password';
-        if (msg.includes('Invalid current password')) {
-          setPasswordError('Incorrect current password');
-        } else if (msg.includes('Password change is only available')) {
+        const msg = err?.message || t('failed-to-change-password');
+        if (msg.includes(t('invalid-current-password'))) {
+          setPasswordError(t('incorrect-current-password'));
+        } else if (msg.includes(t('password-change-is-only-available'))) {
           setPasswordError(
-            'Password change is not available for OAuth accounts',
+            t('password-change-is-not-available-for-oauth-accounts'),
           );
         } else if (
-          msg.includes('invalid data') ||
-          msg.includes('password must')
+          msg.includes(t('invalid-data')) ||
+          msg.includes(t('password-must'))
         ) {
-          setPasswordError('Password is too weak');
+          setPasswordError(t('password-is-too-weak'));
         } else {
           setPasswordError(msg);
         }
@@ -76,15 +79,15 @@ export default function ProfileEditor() {
   return (
     <div className='profile-page'>
       <div className='page-header'>
-        <h1>Profile</h1>
-        <p>Manage your account information</p>
+        <h1>{t('profile')}</h1>
+        <p>{t('manage-your-account-information')}</p>
       </div>
 
       {message && <div className='auth-success'>{message}</div>}
       {error && <div className='auth-error'>{error}</div>}
 
       {loading ? (
-        <p style={{ color: 'var(--muted-text)' }}>Loading profile...</p>
+        <p style={{ color: 'var(--muted-text)' }}>{t('loading-profile')}</p>
       ) : (
         <div className='profile-sections'>
           <div className='profile-section'>
@@ -110,10 +113,10 @@ export default function ProfileEditor() {
           </div>
 
           <div className='profile-section'>
-            <h2>Personal Information</h2>
+            <h2>{t('personal-information')}</h2>
             <form onSubmit={handleProfileUpdate} className='profile-form'>
               <div className='form-group'>
-                <label htmlFor='username'>Username</label>
+                <label htmlFor='username'>{t('username')}</label>
                 <input
                   id='username'
                   type='text'
@@ -122,7 +125,7 @@ export default function ProfileEditor() {
                 />
               </div>
               <div className='form-group'>
-                <label htmlFor='prof-email'>Email</label>
+                <label htmlFor='prof-email'>{t('email')}</label>
                 <input
                   id='prof-email'
                   type='email'
@@ -131,16 +134,15 @@ export default function ProfileEditor() {
                 />
               </div>
               <button type='submit' className='btn-primary'>
-                Save Changes
-              </button>
+                {t('save-changes')} </button>
             </form>
           </div>
 
           <div className='profile-section'>
-            <h2>Change Password</h2>
+            <h2>{t('change-password')}</h2>
             <form onSubmit={handlePasswordChange} className='profile-form'>
               <div className='form-group'>
-                <label htmlFor='currentPassword'>Current Password</label>
+                <label htmlFor='currentPassword'>{t('current-password')}</label>
                 <input
                   id='currentPassword'
                   type='password'
@@ -150,7 +152,7 @@ export default function ProfileEditor() {
                 />
               </div>
               <div className='form-group'>
-                <label htmlFor='newPassword'>New Password</label>
+                <label htmlFor='newPassword'>{t('new-password')}</label>
                 <input
                   id='newPassword'
                   type='password'
@@ -161,7 +163,7 @@ export default function ProfileEditor() {
                 />
               </div>
               <div className='form-group'>
-                <label htmlFor='confirmNewPassword'>Confirm New Password</label>
+                <label htmlFor='confirmNewPassword'>{t('confirm-new-password')}</label>
                 <input
                   id='confirmNewPassword'
                   type='password'
@@ -175,7 +177,7 @@ export default function ProfileEditor() {
                 className='btn-primary'
                 disabled={changingPassword}
               >
-                {changingPassword ? 'Changing...' : 'Change Password'}
+                {changingPassword ? t('changing') : t('change-password')}
               </button>
             </form>
           </div>
@@ -228,7 +230,7 @@ export default function ProfileEditor() {
               </>
             )}
             <button className='btn-primary' onClick={closePasswordPopup}>
-              OK
+              {t('ok')}
             </button>
           </div>
         </div>
